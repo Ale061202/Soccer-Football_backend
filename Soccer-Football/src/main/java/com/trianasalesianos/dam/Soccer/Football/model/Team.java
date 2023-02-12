@@ -14,7 +14,7 @@ public class Team {
     @Id @GeneratedValue
     private Long id;
 
-    private String name;ç
+    private String name;
 
     private League league;
 }
