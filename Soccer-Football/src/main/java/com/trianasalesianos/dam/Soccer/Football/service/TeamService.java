@@ -1,20 +1,23 @@
 package com.trianasalesianos.dam.Soccer.Football.service;
 
-import com.trianasalesianos.dam.Soccer.Football.model.User;
-import com.trianasalesianos.dam.Soccer.Football.repository.UserRepository;
+import com.trianasalesianos.dam.Soccer.Football.model.Post;
+import com.trianasalesianos.dam.Soccer.Football.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.repository.PostRepository;
+import com.trianasalesianos.dam.Soccer.Football.repository.TeamRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class UserService {
-    private final UserRepository repository;
+public class TeamService {
+    private final TeamRepository repository;
 
-    public List<User> findAll() {
+    public List<Team> findAll() {
 
-        List<User> result = repository.findAll();
+        List<Team> result = repository.findAll();
 
         if (result.isEmpty())
             throw new EntityNotFoundException("No users with this search criteria");
@@ -22,7 +25,7 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User findById(Long id) {
+    public Team findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No user with id: " + id));
 
