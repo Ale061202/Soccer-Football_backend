@@ -1,7 +1,6 @@
 package com.trianasalesianos.dam.Soccer.Football.service;
 
 import com.trianasalesianos.dam.Soccer.Football.model.Post;
-import com.trianasalesianos.dam.Soccer.Football.model.User;
 import com.trianasalesianos.dam.Soccer.Football.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
