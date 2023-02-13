@@ -1,4 +1,4 @@
-package com.trianasalesianos.dam.Soccer.Football.model;
+package com.trianasalesianos.dam.Soccer.Football.post.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
