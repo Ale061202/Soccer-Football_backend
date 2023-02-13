@@ -1,9 +1,7 @@
 package com.trianasalesianos.dam.Soccer.Football.service;
 
 import com.trianasalesianos.dam.Soccer.Football.model.Comment;
-import com.trianasalesianos.dam.Soccer.Football.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.repository.CommentRepository;
-import com.trianasalesianos.dam.Soccer.Football.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
