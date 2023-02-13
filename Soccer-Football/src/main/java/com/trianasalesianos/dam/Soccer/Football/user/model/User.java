@@ -1,5 +1,10 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
+
+import com.trianasalesianos.dam.Soccer.Football.esDel.EsDel;
+import jakarta.persistence.OneToMany;
+import lombok.*;
+
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +15,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
+@Builder
 public class User {
 
     @Id @GeneratedValue
@@ -35,6 +43,13 @@ public class User {
 
     private Date birthDate;
 
-    @ManyToMany
-    private Post post;
+
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user")
+    private List<EsDel> esDelList = new ArrayList<>();
+
+    @OneToMany
+    private List<Post> postList;
 }
