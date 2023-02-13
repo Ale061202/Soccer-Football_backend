@@ -1,8 +1,10 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
+import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 public class User {
+
     @Id @GeneratedValue
     private UUID id;
 
@@ -31,4 +34,7 @@ public class User {
     private String avatar;
 
     private Date birthDate;
+
+    @ManyToMany
+    private Post post;
 }
