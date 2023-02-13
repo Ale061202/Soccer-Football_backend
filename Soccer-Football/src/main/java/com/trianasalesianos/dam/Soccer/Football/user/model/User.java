@@ -1,7 +1,6 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
 
-//import com.trianasalesianos.dam.Soccer.Football.esDel.EsDel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +16,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -31,7 +29,7 @@ import java.util.stream.Collectors;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="user_entity")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -56,61 +54,7 @@ public class User implements UserDetails {
 
     private String avatar;
 
-    private String fullName;
+    private String first_name;
 
-    @Builder.Default
-    private boolean accountNonExpired = true;
-    @Builder.Default
-    private boolean accountNonLocked = true;
-    @Builder.Default
-    private boolean credentialsNonExpired = true;
-    @Builder.Default
-    private boolean enabled = true;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<UserRole> roles;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @Builder.Default
-    private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> "ROLE_" + role)
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+    private String last_name;
 }
