@@ -1,7 +1,7 @@
-package com.trianasalesianos.dam.Soccer.Football.service;
+package com.trianasalesianos.dam.Soccer.Football.league.service;
 
-import com.trianasalesianos.dam.Soccer.Football.model.League;
-import com.trianasalesianos.dam.Soccer.Football.repository.LeagueRepository;
+import com.trianasalesianos.dam.Soccer.Football.league.model.League;
+import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

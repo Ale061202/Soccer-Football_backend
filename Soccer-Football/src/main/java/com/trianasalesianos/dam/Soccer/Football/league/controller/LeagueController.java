@@ -1,4 +1,4 @@
-package com.trianasalesianos.dam.Soccer.Football.controller;
+package com.trianasalesianos.dam.Soccer.Football.league.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
