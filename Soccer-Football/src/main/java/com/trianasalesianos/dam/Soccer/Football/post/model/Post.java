@@ -1,9 +1,11 @@
 package com.trianasalesianos.dam.Soccer.Football.post.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -15,8 +17,15 @@ public class Post {
     private Long id;
 
     private String content;
+
     private String postPhoto;
-    private Integer likeCount;
-    private Integer commentCount;
-    private Integer shareCount;
+
+    private int likeCount;
+
+    private int commentCount;
+
+    @ManyToMany
+    private User author;
+    @OneToMany
+    private List<Comment> commentaries;
 }
