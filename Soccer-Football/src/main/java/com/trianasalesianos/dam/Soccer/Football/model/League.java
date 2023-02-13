@@ -17,5 +17,6 @@ public class League {
     private Long id;
 
     private String league;
+    @ManyToOne
     private List<Team> teams;
 }
