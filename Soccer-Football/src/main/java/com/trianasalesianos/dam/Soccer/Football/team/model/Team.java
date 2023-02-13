@@ -1,11 +1,12 @@
 package com.trianasalesianos.dam.Soccer.Football.team.model;
 
+import com.trianasalesianos.dam.Soccer.Football.esDel.EsDel;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -17,6 +18,12 @@ public class Team {
     private Long id;
 
     private String name;
-    @OneToMany
+    @ManyToOne
     private League league;
+
+    @OneToMany(mappedBy = "team")
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<EsDel> esDelList = new ArrayList<>();
 }

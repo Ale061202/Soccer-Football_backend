@@ -1,19 +1,21 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
+import com.trianasalesianos.dam.Soccer.Football.esDel.EsDel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.OneToMany;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
+@Builder
 public class User {
     @Id @GeneratedValue
     private UUID id;
@@ -31,4 +33,10 @@ public class User {
     private String avatar;
 
     private Date birthDate;
+
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user")
+    private List<EsDel> esDelList = new ArrayList<>();
 }
