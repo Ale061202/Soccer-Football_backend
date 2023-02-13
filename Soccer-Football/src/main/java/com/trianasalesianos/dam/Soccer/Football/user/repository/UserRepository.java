@@ -1,6 +1,6 @@
-package com.trianasalesianos.dam.Soccer.Football.repository;
+package com.trianasalesianos.dam.Soccer.Football.user.repository;
 
-import com.trianasalesianos.dam.Soccer.Football.model.User;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

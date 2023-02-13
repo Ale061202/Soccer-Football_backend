@@ -1,4 +1,4 @@
-package com.trianasalesianos.dam.Soccer.Football.model;
+package com.trianasalesianos.dam.Soccer.Football.user.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 public class User {
     @Id @GeneratedValue
-    private Long id;
+    private UUID id;
 
     private String username;
 
