@@ -1,10 +1,7 @@
 package com.trianasalesianos.dam.Soccer.Football.league.model;
 
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -18,6 +15,6 @@ public class League {
     private Long id;
 
     private String league;
-    @ManyToOne
+    @OneToMany
     private List<Team> teams;
 }
