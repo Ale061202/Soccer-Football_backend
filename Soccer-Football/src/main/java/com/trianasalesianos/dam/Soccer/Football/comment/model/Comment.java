@@ -5,6 +5,7 @@ import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.util.Date;
@@ -19,12 +20,15 @@ public class Comment {
     private Long id;
 
     private String content;
+
     private Integer likeCount;
 
     private Date dateCreated;
 
+    @ManyToOne
     private User author;
 
+    @ManyToOne
     private Post post;
 
 }
