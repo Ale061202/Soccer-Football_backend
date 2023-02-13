@@ -1,5 +1,6 @@
-package com.trianasalesianos.dam.Soccer.Football.model;
+package com.trianasalesianos.dam.Soccer.Football.team.model;
 
+import com.trianasalesianos.dam.Soccer.Football.model.League;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

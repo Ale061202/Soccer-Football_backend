@@ -1,6 +1,6 @@
-package com.trianasalesianos.dam.Soccer.Football.repository;
+package com.trianasalesianos.dam.Soccer.Football.team.repository;
 
-import com.trianasalesianos.dam.Soccer.Football.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
