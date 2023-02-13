@@ -1,4 +1,4 @@
-package com.trianasalesianos.dam.Soccer.Football.model;
+package com.trianasalesianos.dam.Soccer.Football.comment.model;
 
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
