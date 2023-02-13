@@ -1,55 +1,116 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
 
-import com.trianasalesianos.dam.Soccer.Football.esDel.EsDel;
-import jakarta.persistence.OneToMany;
+//import com.trianasalesianos.dam.Soccer.Football.esDel.EsDel;
+import jakarta.persistence.*;
 import lombok.*;
 
-import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+//import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.Parameter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+@Table(name="user_entity")
+public class User implements UserDetails {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = {
+                    @Parameter(
+                            name = "uuid_gen_strategy_class",
+                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                    )
+            }
+    )
+    @Column(columnDefinition = "uuid")
     private UUID id;
 
+    @NaturalId
+    @Column(unique = true, updatable = false)
     private String username;
 
     private String password;
 
-    private String email;
-
-    private String first_name;
-
-    private String last_name;
-
     private String avatar;
 
-    private Date birthDate;
-
+    private String fullName;
 
     @Builder.Default
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "user")
-    private List<EsDel> esDelList = new ArrayList<>();
+    private boolean accountNonExpired = true;
+    @Builder.Default
+    private boolean accountNonLocked = true;
+    @Builder.Default
+    private boolean credentialsNonExpired = true;
+    @Builder.Default
+    private boolean enabled = true;
 
-    @OneToMany
-    private List<Post> postList;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<UserRole> roles;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @Builder.Default
+    private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> "ROLE_" + role)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
