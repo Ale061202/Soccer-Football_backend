@@ -1,0 +1,168 @@
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    drop table if exists [*]user cascade "; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+
+    drop table if exists user cascade  [42001-214]
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table user (
+       id uuid not null,
+        avatar varchar(255),
+        birth_date timestamp(6),
+        email varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) [42001-214]
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists comment \000d\000a       add constraint FKh1gtv412u19wcbx22177xbkjp \000d\000a       foreign key (author_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists comment \000d\000a       add constraint FKh1gtv412u19wcbx22177xbkjp \000d\000a       foreign key (author_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists comment 
+       add constraint FKh1gtv412u19wcbx22177xbkjp 
+       foreign key (author_id) 
+       references user [42001-214]
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists puede \000d\000a       add constraint FKfaidys1gsec0dt2oggjmn0ieh \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists puede \000d\000a       add constraint FKfaidys1gsec0dt2oggjmn0ieh \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists puede 
+       add constraint FKfaidys1gsec0dt2oggjmn0ieh 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists team \000d\000a       add constraint FK7ab8b9m84sk9vvpmrn6b6tpjk \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists team \000d\000a       add constraint FK7ab8b9m84sk9vvpmrn6b6tpjk \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists team 
+       add constraint FK7ab8b9m84sk9vvpmrn6b6tpjk 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists user_comment_list \000d\000a       add constraint FKlvon4q0hemo8ouluqcedbci3l \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists user_comment_list \000d\000a       add constraint FKlvon4q0hemo8ouluqcedbci3l \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists user_comment_list 
+       add constraint FKlvon4q0hemo8ouluqcedbci3l 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:00:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists user_team_list \000d\000a       add constraint FKj5e0ob8u3x7lfira0y9e7xmw1 \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists user_team_list \000d\000a       add constraint FKj5e0ob8u3x7lfira0y9e7xmw1 \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists user_team_list 
+       add constraint FKj5e0ob8u3x7lfira0y9e7xmw1 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:05:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    drop table if exists [*]user cascade "; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+
+    drop table if exists user cascade  [42001-214]
+2023-02-14 00:05:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table user (
+       id uuid not null,
+        avatar varchar(255),
+        birth_date timestamp(6),
+        email varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) [42001-214]
+2023-02-14 00:05:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists puede \000d\000a       add constraint FKfaidys1gsec0dt2oggjmn0ieh \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists puede \000d\000a       add constraint FKfaidys1gsec0dt2oggjmn0ieh \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists puede 
+       add constraint FKfaidys1gsec0dt2oggjmn0ieh 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:06:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    drop table if exists [*]user cascade "; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+
+    drop table if exists user cascade  [42001-214]
+2023-02-14 00:06:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table user (
+       id uuid not null,
+        avatar varchar(255),
+        birth_date timestamp(6),
+        email varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    drop table if exists [*]user cascade "; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+
+    drop table if exists user cascade  [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    create table [*]user (\000d\000a       id uuid not null,\000d\000a        avatar varchar(255),\000d\000a        birth_date timestamp(6),\000d\000a        email varchar(255),\000d\000a        first_name varchar(255),\000d\000a        last_name varchar(255),\000d\000a        password varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table user (
+       id uuid not null,
+        avatar varchar(255),
+        birth_date timestamp(6),
+        email varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists post \000d\000a       add constraint FK12njtf8e0jmyb45lqfpt6ad89 \000d\000a       foreign key (author_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists post \000d\000a       add constraint FK12njtf8e0jmyb45lqfpt6ad89 \000d\000a       foreign key (author_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists post 
+       add constraint FK12njtf8e0jmyb45lqfpt6ad89 
+       foreign key (author_id) 
+       references user [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists team \000d\000a       add constraint FK7ab8b9m84sk9vvpmrn6b6tpjk \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists team \000d\000a       add constraint FK7ab8b9m84sk9vvpmrn6b6tpjk \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists team 
+       add constraint FK7ab8b9m84sk9vvpmrn6b6tpjk 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists user_comment_list \000d\000a       add constraint FKlvon4q0hemo8ouluqcedbci3l \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists user_comment_list \000d\000a       add constraint FKlvon4q0hemo8ouluqcedbci3l \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists user_comment_list 
+       add constraint FKlvon4q0hemo8ouluqcedbci3l 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists user_post_list \000d\000a       add constraint FKgovacbbj2c1wqmv27279saq9l \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists user_post_list \000d\000a       add constraint FKgovacbbj2c1wqmv27279saq9l \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists user_post_list 
+       add constraint FKgovacbbj2c1wqmv27279saq9l 
+       foreign key (user_id) 
+       references user [42001-214]
+2023-02-14 00:11:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000d\000a    alter table if exists user_team_list \000d\000a       add constraint FKj5e0ob8u3x7lfira0y9e7xmw1 \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; se esperaba "identifier"
+Syntax error in SQL statement "\000d\000a    alter table if exists user_team_list \000d\000a       add constraint FKj5e0ob8u3x7lfira0y9e7xmw1 \000d\000a       foreign key (user_id) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table if exists user_team_list 
+       add constraint FKj5e0ob8u3x7lfira0y9e7xmw1 
+       foreign key (user_id) 
+       references user [42001-214]
