@@ -1,12 +1,13 @@
 package com.trianasalesianos.dam.Soccer.Football.comment.model;
 
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
@@ -15,7 +16,8 @@ import java.util.Date;
 @Builder
 public class Comment {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String content;

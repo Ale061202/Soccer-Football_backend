@@ -1,12 +1,13 @@
 package com.trianasalesianos.dam.Soccer.Football.league.model;
 
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
 @Builder
 public class League {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String league_name;

@@ -2,10 +2,10 @@ package com.trianasalesianos.dam.Soccer.Football.team.service;
 
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import com.trianasalesianos.dam.Soccer.Football.team.repository.TeamRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service

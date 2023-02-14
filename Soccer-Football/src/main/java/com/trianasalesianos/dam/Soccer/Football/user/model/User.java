@@ -2,12 +2,12 @@ package com.trianasalesianos.dam.Soccer.Football.user.model;
 
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
