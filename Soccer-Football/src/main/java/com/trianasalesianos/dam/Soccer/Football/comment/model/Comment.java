@@ -1,7 +1,5 @@
 package com.trianasalesianos.dam.Soccer.Football.comment.model;
 
-import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
-import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,11 +22,4 @@ public class Comment {
     private Integer likeCount;
 
     private Date dateCreated;
-
-    @ManyToOne
-    private User author;
-
-    @ManyToOne
-    private Post post;
-
 }
