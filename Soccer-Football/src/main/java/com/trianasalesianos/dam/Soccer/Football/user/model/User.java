@@ -13,9 +13,10 @@ import java.util.UUID;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
-@Table(name="user_entity")
 @EntityListeners(AuditingEntityListener.class)
+@Table(name="user_entity")
 public class User {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -37,13 +38,11 @@ public class User {
 
     private String password;
 
-    private String email;
+    private String avatar;
 
     private String first_name;
 
     private String last_name;
 
-    private String avatar;
-
-    private Date birthDate;
+    private Date birth_date;
 }
