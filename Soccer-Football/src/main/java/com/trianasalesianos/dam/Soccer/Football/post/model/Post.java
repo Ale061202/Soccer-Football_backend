@@ -1,7 +1,5 @@
 package com.trianasalesianos.dam.Soccer.Football.post.model;
 
-import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
-import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,9 +21,4 @@ public class Post {
     private int likeCount;
 
     private int commentCount;
-
-    @ManyToMany
-    private User author;
-    @OneToMany
-    private List<Comment> commentaries;
 }
