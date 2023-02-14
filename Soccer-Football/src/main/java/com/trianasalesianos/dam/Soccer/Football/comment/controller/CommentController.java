@@ -1,9 +1,9 @@
-package com.trianasalesianos.dam.Soccer.Football.user.controller;
+package com.trianasalesianos.dam.Soccer.Football.comment.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class UserController {
+public class CommentController {
 }
