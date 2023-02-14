@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -50,8 +51,8 @@ public class User {
     private Date birth_date;
 
     @OneToMany
-    private List<Team> teamList;
+    private List<Team> teamList = new ArrayList<>();
 
     @OneToMany
-    private List<Post> postList;
+    private List<Post> postList = new ArrayList<>();
 }
