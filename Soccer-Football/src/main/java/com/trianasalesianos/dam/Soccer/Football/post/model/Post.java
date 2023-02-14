@@ -2,9 +2,9 @@ package com.trianasalesianos.dam.Soccer.Football.post.model;
 
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,8 @@ import java.util.List;
 @Builder
 public class Post {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String content;

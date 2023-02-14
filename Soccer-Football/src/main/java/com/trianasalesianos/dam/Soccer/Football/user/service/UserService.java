@@ -3,10 +3,10 @@ package com.trianasalesianos.dam.Soccer.Football.user.service;
 
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import com.trianasalesianos.dam.Soccer.Football.user.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -70,5 +70,10 @@ public class UserService {
 
     }
      */
+
+    public boolean userExists(String username) {
+        return repository.existsByUsername(username);
+    }
+
 
 }

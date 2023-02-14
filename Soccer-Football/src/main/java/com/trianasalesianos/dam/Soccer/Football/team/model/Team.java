@@ -1,8 +1,12 @@
 package com.trianasalesianos.dam.Soccer.Football.team.model;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -10,7 +14,8 @@ import lombok.*;
 @Builder
 public class Team {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;

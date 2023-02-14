@@ -1,13 +1,12 @@
 package com.trianasalesianos.dam.Soccer.Football.post.service;
 
-import com.trianasalesianos.dam.Soccer.Football.league.model.League;
-import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
+
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
