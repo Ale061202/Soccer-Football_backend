@@ -3,6 +3,7 @@ package com.trianasalesianos.dam.Soccer.Football.user.service;
 
 import com.trianasalesianos.dam.Soccer.Football.user.dto.CreateUserRequest;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
+import com.trianasalesianos.dam.Soccer.Football.user.model.UserRole;
 import com.trianasalesianos.dam.Soccer.Football.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,13 +12,14 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository repository;
-
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
         User user =  User.builder()
@@ -29,24 +31,7 @@ public class UserService {
                 .roles(roles)
                 .build();
 
-        return repository.save(user);
-    }
-
-
-    public List<User> findAll() {
-
-        List<User> result = repository.findAll();
-
-        if (result.isEmpty())
-            throw new EntityNotFoundException("No users with this search criteria");
-
-        return repository.findAll();
-    }
-
-    public User findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No user with id: " + id));
-
+        return userRepository.save(user);
     }
 
     public User createUserWithUserRole(CreateUserRequest createUserRequest) {
@@ -57,11 +42,63 @@ public class UserService {
         return createUser(createUserRequest, EnumSet.of(UserRole.ADMIN));
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
+    public Optional<User> findById(UUID id) {
+        return userRepository.findById(id);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findFirstByUsername(username);
+    }
+
+    public Optional<User> edit(User user) {
+
+        // El username no se puede editar
+        // La contraseña se edita en otro método
+
+        return userRepository.findById(user.getId())
+                .map(u -> {
+                    u.setAvatar(user.getAvatar());
+                    u.setFirst_name(user.getFirst_name());
+                    u.setLast_name(user.getLast_name());
+                    return userRepository.save(u);
+                }).or(() -> Optional.empty());
+
+    }
+
+    public Optional<User> editPassword(UUID userId, String newPassword) {
+
+        // Aquí no se realizan comprobaciones de seguridad. Tan solo se modifica
+
+        return userRepository.findById(userId)
+                .map(u -> {
+                    u.setPassword(passwordEncoder.encode(newPassword));
+                    return userRepository.save(u);
+                }).or(() -> Optional.empty());
+
+    }
+
+    public void delete(User user) {
+        deleteById(user.getId());
+    }
+
+    public void deleteById(UUID id) {
+        // Prevenimos errores al intentar borrar algo que no existe
+        if (userRepository.existsById(id))
+            userRepository.deleteById(id);
+    }
+
+    public boolean passwordMatch(User user, String clearPassword) {
+        return passwordEncoder.matches(clearPassword, user.getPassword());
+    }
 
     public boolean userExists(String username) {
-        return repository.existsByUsername(username);
+        return userRepository.existsByUsername(username);
     }
+
 
 
 }
