@@ -1,18 +1,36 @@
 package com.trianasalesianos.dam.Soccer.Football.user.service;
 
 
+import com.trianasalesianos.dam.Soccer.Football.user.dto.CreateUserRequest;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import com.trianasalesianos.dam.Soccer.Football.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.EnumSet;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
+        User user =  User.builder()
+                .username(createUserRequest.getUsername())
+                .password(passwordEncoder.encode(createUserRequest.getPassword()))
+                .avatar(createUserRequest.getAvatar())
+                .first_name(createUserRequest.getFirst_name())
+                .last_name(createUserRequest.getLast_name())
+                .roles(roles)
+                .build();
+
+        return repository.save(user);
+    }
 
 
     public List<User> findAll() {
@@ -31,45 +49,15 @@ public class UserService {
 
     }
 
-    /**
-     * Almacenamos el nuevo usuario con la contarseña
-     * cifrada con BCrypt
-     * @param newUserDto Datos del nuevo usuario
-     * @return Usuario creado
+    public User createUserWithUserRole(CreateUserRequest createUserRequest) {
+        return createUser(createUserRequest, EnumSet.of(UserRole.USER));
+    }
 
-    public Post save(NewUserDto newUserDto) {
-
-    return repository.save(
-    User.builder()
-    .username(newUserDto.getUsername())
-    .password(passwordEncoder.encode(newUserDto.getPassword()))
-    .avatar(newUserDto.getAvatar())
-    .fullname(newUserDto.getFullname())
-    .email(newUserDto.getEmail())
-    .build());
-
-
+    public User createUserWithAdminRole(CreateUserRequest createUserRequest) {
+        return createUser(createUserRequest, EnumSet.of(UserRole.ADMIN));
     }
 
 
-     * Se editan solamente algunos datos del usuario.
-     * El username, el email y password no se pueden modificar
-     * @param editUserDto Nuevo avatar o fullname
-     * @return Usuario modificado
-
-    public Post editDetails(Long id, EditUserDto editUserDto) {
-
-    return repository.findById(id)
-    .map(user -> {
-    user.setAvatar(editUserDto.getAvatar());
-    user.setFullname(editUserDto.getFullname());
-    return repository.save(user);
-    })
-    .orElseThrow(() ->new EntityNotFoundException("No user with id: " + id));
-
-
-    }
-     */
 
     public boolean userExists(String username) {
         return repository.existsByUsername(username);
