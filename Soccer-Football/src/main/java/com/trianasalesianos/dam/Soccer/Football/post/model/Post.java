@@ -20,11 +20,7 @@ public class Post {
 
     private String content;
 
-    private String postPhoto;
-
-    private int likeCount;
-
-    private int commentCount;
+    private String title;
 
     @ManyToOne
     private User user;
