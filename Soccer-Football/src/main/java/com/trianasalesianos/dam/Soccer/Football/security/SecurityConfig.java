@@ -30,33 +30,34 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     private final AccessDeniedHandler jwtAccessDeniedHandler;
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    /*
-        @Bean
-        public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-            AuthenticationManagerBuilder authenticationManagerBuilder =
-                    http.getSharedObject(AuthenticationManagerBuilder.class);
 
-            AuthenticationManager authenticationManager =
-                    authenticationManagerBuilder.authenticationProvider(authenticationProvider())
-                            .build();
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception{
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
 
-            return authenticationManager;
-        }
+        AuthenticationManager authenticationManager =
+                authenticationManagerBuilder.authenticationProvider(authenticationProvider())
+                        .build();
 
-        @Bean
-        public DaoAuthenticationProvider authenticationProvider() {
-            DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        return authenticationManager;
+    }
 
-            authenticationProvider.setUserDetailsService(userDetailsService);
-            authenticationProvider.setPasswordEncoder(passwordEncoder);
-            authenticationProvider.setHideUserNotFoundExceptions(false);
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 
-            return authenticationProvider;
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder);
+        authenticationProvider.setHideUserNotFoundExceptions(false);
+        return authenticationProvider;
 
-        }
-    */
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
