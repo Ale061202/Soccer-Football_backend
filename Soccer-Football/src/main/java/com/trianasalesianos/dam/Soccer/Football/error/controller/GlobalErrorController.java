@@ -23,7 +23,6 @@ public class GlobalErrorController extends AbstractErrorController {
     }
 
     public GlobalErrorController(ErrorAttributes errorAttributes)  {
-        // De esta forma, no le permitimos añadir ningún ViewResolver que pueda hacer renderizar una página HTML.
         super(errorAttributes, Collections.emptyList());
     }
 
