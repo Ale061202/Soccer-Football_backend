@@ -1,6 +1,7 @@
 package com.trianasalesianos.dam.Soccer.Football.post.service;
 
 
+import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
