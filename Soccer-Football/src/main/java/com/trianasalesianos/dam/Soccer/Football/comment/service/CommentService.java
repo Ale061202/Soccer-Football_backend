@@ -2,6 +2,9 @@ package com.trianasalesianos.dam.Soccer.Football.comment.service;
 
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.comment.repository.CommentRepository;
+import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,44 +33,22 @@ public class CommentService {
 
     }
 
-    /**
-     * Almacenamos el nuevo usuario con la contarseña
-     * cifrada con BCrypt
-     * @param newUserDto Datos del nuevo usuario
-     * @return Usuario creado
-
-    public Post save(NewUserDto newUserDto) {
-
-    return repository.save(
-    User.builder()
-    .username(newUserDto.getUsername())
-    .password(passwordEncoder.encode(newUserDto.getPassword()))
-    .avatar(newUserDto.getAvatar())
-    .fullname(newUserDto.getFullname())
-    .email(newUserDto.getEmail())
-    .build());
-
-
+    public Comment save(Comment comment) {
+        return repository.save(comment);
     }
 
-
-     * Se editan solamente algunos datos del usuario.
-     * El username, el email y password no se pueden modificar
-     * @param editUserDto Nuevo avatar o fullname
-     * @return Usuario modificado
-
-    public Post editDetails(Long id, EditUserDto editUserDto) {
-
-    return repository.findById(id)
-    .map(user -> {
-    user.setAvatar(editUserDto.getAvatar());
-    user.setFullname(editUserDto.getFullname());
-    return repository.save(user);
-    })
-    .orElseThrow(() ->new EntityNotFoundException("No user with id: " + id));
-
-
+    public Comment edit(Long id, Comment edited) {
+        return repository.findById(id)
+                .map(note -> {
+                    note.setContent(edited.getContent());
+                    return repository.save(note);
+                })
+                .orElseThrow(() -> new CommentNotFoundException());
     }
-     */
+
+    public void delete(Long id) {
+        if (repository.existsById(id))
+            repository.deleteById(id);
+    }
 
 }

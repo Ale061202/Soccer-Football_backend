@@ -22,10 +22,6 @@ public class Comment {
 
     private String content;
 
-    private Integer likeCount;
-
-    private Date dateCreated;
-
     @ManyToOne
     private Post post;
 }

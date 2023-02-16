@@ -43,11 +43,6 @@ public class PostController {
                 .path("/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
-        /*
-            Habitualmente, la respuesta correcta de una petición POST es 201 Created.
-            Adicionalmente, se puede devolver un encabezado Location con la URI que
-            nos permite realizar la petición GET al recurso recién creado.
-         */
         return ResponseEntity
                 .created(createdURI)
                 .body(created);
@@ -55,7 +50,6 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    //public ResponseEntity<Note> edit(@PathVariable Long id, @RequestBody Note edited) {
     public Post edit(@PathVariable Long id, @RequestBody Post edited) {
         return postService.edit(id, edited);
     }
