@@ -23,9 +23,10 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
-@Log
+
 @Component
 @RequiredArgsConstructor
+@Log
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserService userService;
