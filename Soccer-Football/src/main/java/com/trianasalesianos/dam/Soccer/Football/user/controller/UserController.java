@@ -82,27 +82,6 @@ public class UserController {
 
     }
 
-    @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
-        String refreshToken = refreshTokenRequest.getRefreshToken();
-
-        return refreshTokenService.findByToken(refreshToken)
-                .map(refreshTokenService::verify)
-                .map(RefreshToken::getUser)
-                .map(user -> {
-                    String token = jwtProvider.generateToken(user);
-                    refreshTokenService.deleteByUser(user);
-                    RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user);
-                    return ResponseEntity.status(HttpStatus.CREATED)
-                            .body(JwtUserResponse.builder()
-                                    .token(token)
-                                    .refreshToken(refreshToken2.getToken())
-                                    .build());
-                })
-                .orElseThrow(() -> new RefreshTokenException("Refresh token not found"));
-
-    }
-
 
 
     @PutMapping("/user/changePassword")
