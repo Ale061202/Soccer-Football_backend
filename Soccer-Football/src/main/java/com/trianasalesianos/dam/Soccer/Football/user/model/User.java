@@ -6,12 +6,13 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="user_entity")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -55,4 +56,54 @@ public class User {
 
     @OneToMany
     private List<Post> postList = new ArrayList<>();
+
+    @Builder.Default
+    private boolean accountNonExpired = true;
+    @Builder.Default
+    private boolean accountNonLocked = true;
+    @Builder.Default
+    private boolean credentialsNonExpired = true;
+    @Builder.Default
+    private boolean enabled = true;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<UserRole> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> "ROLE_" + role)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
