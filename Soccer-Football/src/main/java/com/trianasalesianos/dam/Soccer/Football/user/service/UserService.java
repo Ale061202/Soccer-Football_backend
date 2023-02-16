@@ -1,6 +1,7 @@
 package com.trianasalesianos.dam.Soccer.Football.user.service;
 
 
+import com.trianasalesianos.dam.Soccer.Football.user.dto.CreateUserRequest;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import com.trianasalesianos.dam.Soccer.Football.user.model.UserRole;
 import com.trianasalesianos.dam.Soccer.Football.user.repository.UserRepository;
@@ -25,7 +26,8 @@ public class UserService {
                 .username(createUserRequest.getUsername())
                 .password(passwordEncoder.encode(createUserRequest.getPassword()))
                 .avatar(createUserRequest.getAvatar())
-                .fullName(createUserRequest.getFullName())
+                .first_name(createUserRequest.getFirst_name())
+                .last_name(createUserRequest.getLast_name())
                 .roles(roles)
                 .build();
 
@@ -60,7 +62,8 @@ public class UserService {
         return userRepository.findById(user.getId())
                 .map(u -> {
                     u.setAvatar(user.getAvatar());
-                    u.setFullName(user.getFullName());
+                    u.setFirst_name(user.getFirst_name());
+                    u.setLast_name(user.getLast_name());
                     return userRepository.save(u);
                 }).or(() -> Optional.empty());
 
@@ -91,6 +94,11 @@ public class UserService {
     public boolean passwordMatch(User user, String clearPassword) {
         return passwordEncoder.matches(clearPassword, user.getPassword());
     }
+
+    public boolean userExists(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
 
 
 }
