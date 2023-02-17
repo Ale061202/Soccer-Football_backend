@@ -1,5 +1,8 @@
 package com.trianasalesianos.dam.Soccer.Football.team.service;
 
+import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import com.trianasalesianos.dam.Soccer.Football.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,44 +33,22 @@ public class TeamService {
 
     }
 
-    /**
-     * Almacenamos el nuevo usuario con la contarseña
-     * cifrada con BCrypt
-     * @param newUserDto Datos del nuevo usuario
-     * @return Usuario creado
-
-    public Post save(NewUserDto newUserDto) {
-
-    return repository.save(
-    User.builder()
-    .username(newUserDto.getUsername())
-    .password(passwordEncoder.encode(newUserDto.getPassword()))
-    .avatar(newUserDto.getAvatar())
-    .fullname(newUserDto.getFullname())
-    .email(newUserDto.getEmail())
-    .build());
-
-
+    public Team save(Team team) {
+        return repository.save(team);
     }
 
-
-     * Se editan solamente algunos datos del usuario.
-     * El username, el email y password no se pueden modificar
-     * @param editUserDto Nuevo avatar o fullname
-     * @return Usuario modificado
-
-    public Post editDetails(Long id, EditUserDto editUserDto) {
-
-    return repository.findById(id)
-    .map(user -> {
-    user.setAvatar(editUserDto.getAvatar());
-    user.setFullname(editUserDto.getFullname());
-    return repository.save(user);
-    })
-    .orElseThrow(() ->new EntityNotFoundException("No user with id: " + id));
-
-
+    public Team edit(Long id, Team edited) {
+        return repository.findById(id)
+                .map(note -> {
+                    note.setName(edited.getName());
+                    return repository.save(note);
+                })
+                .orElseThrow(() -> new TeamNotFoundException());
     }
-     */
+
+    public void delete(Long id) {
+        if (repository.existsById(id))
+            repository.deleteById(id);
+    }
 
 }
