@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.league.service;
 
 import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.LeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
@@ -17,7 +18,7 @@ public class LeagueService {
     private final LeagueRepository repository;
 
 
-    public List<League> findAll() {
+    public List<LeagueDto> findAll() {
 
         List<League> result = repository.findAll();
 
@@ -27,7 +28,7 @@ public class LeagueService {
         return repository.findAll();
     }
 
-    public League findById(Long id) {
+    public LeagueDto findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No user with id: " + id));
 
