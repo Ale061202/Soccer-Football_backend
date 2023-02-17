@@ -1,7 +1,10 @@
 package com.trianasalesianos.dam.Soccer.Football.league.service;
 
+import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
+import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,44 +33,22 @@ public class LeagueService {
 
     }
 
-    /**
-     * Almacenamos el nuevo usuario con la contarseña
-     * cifrada con BCrypt
-     * @param newUserDto Datos del nuevo usuario
-     * @return Usuario creado
-
-    public Post save(NewUserDto newUserDto) {
-
-    return repository.save(
-    User.builder()
-    .username(newUserDto.getUsername())
-    .password(passwordEncoder.encode(newUserDto.getPassword()))
-    .avatar(newUserDto.getAvatar())
-    .fullname(newUserDto.getFullname())
-    .email(newUserDto.getEmail())
-    .build());
-
-
+    public League save(League league) {
+        return repository.save(league);
     }
 
-
-     * Se editan solamente algunos datos del usuario.
-     * El username, el email y password no se pueden modificar
-     * @param editUserDto Nuevo avatar o fullname
-     * @return Usuario modificado
-
-    public Post editDetails(Long id, EditUserDto editUserDto) {
-
-    return repository.findById(id)
-    .map(user -> {
-    user.setAvatar(editUserDto.getAvatar());
-    user.setFullname(editUserDto.getFullname());
-    return repository.save(user);
-    })
-    .orElseThrow(() ->new EntityNotFoundException("No user with id: " + id));
-
-
+    public League edit(Long id, League edited) {
+        return repository.findById(id)
+                .map(note -> {
+                    note.setLeague_name(edited.getLeague_name());
+                    return repository.save(note);
+                })
+                .orElseThrow(() -> new LeagueNotFoundException());
     }
-     */
+
+    public void delete(Long id) {
+        if (repository.existsById(id))
+            repository.deleteById(id);
+    }
 
 }
