@@ -2,8 +2,6 @@ package com.trianasalesianos.dam.Soccer.Football.user.controller;
 
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.access.JwtProvider;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshToken;
-import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenException;
-import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenRequest;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenService;
 import com.trianasalesianos.dam.Soccer.Football.user.dto.*;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
@@ -34,14 +32,12 @@ public class UserController {
     private final RefreshTokenService refreshTokenService;
 
 
-    @PostMapping("/auth/register")
+    @PostMapping("/auth/register/user")
     public ResponseEntity<UserResponse> createUserWithUserRole(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUserWithUserRole(createUserRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
     }
-
-    // Más adelante podemos manejar la seguridad de acceso a esta petición
 
     @PostMapping("/auth/register/admin")
     public ResponseEntity<UserResponse> createUserWithAdminRole(@RequestBody CreateUserRequest createUserRequest) {
@@ -54,7 +50,6 @@ public class UserController {
     @PostMapping("/auth/login")
     public ResponseEntity<JwtUserResponse> login(@RequestBody LoginRequest loginRequest) {
 
-        // Realizamos la autenticación
 
         Authentication authentication =
                 authManager.authenticate(
@@ -64,15 +59,12 @@ public class UserController {
                         )
                 );
 
-        // Una vez realizada, la guardamos en el contexto de seguridad
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Devolvemos una respuesta adecuada
         String token = jwtProvider.generateToken(authentication);
 
         User user = (User) authentication.getPrincipal();
 
-        // Eliminamos el token (si existe) antes de crearlo, ya que cada usuario debería tener solamente un token de refresco simultáneo
         refreshTokenService.deleteByUser(user);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user);
 
@@ -88,18 +80,14 @@ public class UserController {
     public ResponseEntity<UserResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest,
                                                        @AuthenticationPrincipal User loggedUser) {
 
-        // Este código es mejorable.
-        // La validación de la contraseña nueva se puede hacer con un validador.
-        // La gestión de errores se puede hacer con excepciones propias
+
         try {
             if (userService.passwordMatch(loggedUser, changePasswordRequest.getOldPassword())) {
                 Optional<User> modified = userService.editPassword(loggedUser.getId(), changePasswordRequest.getNewPassword());
                 if (modified.isPresent())
                     return ResponseEntity.ok(UserResponse.fromUser(modified.get()));
             } else {
-                // Lo ideal es que esto se gestionara de forma centralizada
-                // Se puede ver cómo hacerlo en la formación sobre Validación con Spring Boot
-                // y la formación sobre Gestión de Errores con Spring Boot
+
                 throw new RuntimeException();
             }
         } catch (RuntimeException ex) {
