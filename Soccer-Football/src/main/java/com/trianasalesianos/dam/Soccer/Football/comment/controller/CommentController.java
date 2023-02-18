@@ -1,5 +1,6 @@
 package com.trianasalesianos.dam.Soccer.Football.comment.controller;
 
+import com.trianasalesianos.dam.Soccer.Football.comment.dto.GetCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,23 +21,26 @@ public class CommentController {
     private final CommentService commentService;
 
     @GetMapping("/")
-    public List<Comment> getAll() {
+    public List<GetCommentDto> getAll() {
 
-        return commentService.findAll();
+        return commentService.findAll()
+                .stream()
+                .map(GetCommentDto::fromComment)
+                .collect(Collectors.toList());
 
     }
 
 
     @GetMapping("/{id}")
-    public Comment getById(@PathVariable Long id) {
+    public GetCommentDto getById(@PathVariable Long id) {
 
 
-        return commentService.findById(id);
+        return GetCommentDto.fromComment(commentService.findById(id));
 
     }
 
     @PostMapping("/")
-    public ResponseEntity<Comment> createNewNote(@Valid @RequestBody Comment comment) {
+    public ResponseEntity<GetCommentDto> createNewNote(@Valid @RequestBody Comment comment) {
 
         Comment created = commentService.save(comment);
 
@@ -46,13 +51,8 @@ public class CommentController {
 
         return ResponseEntity
                 .created(createdURI)
-                .body(created);
+                .body(GetCommentDto.fromComment(created));
 
-    }
-
-    @PutMapping("/{id}")
-    public Comment edit(@PathVariable Long id, @RequestBody Comment edited) {
-        return commentService.edit(id, edited);
     }
 
     @DeleteMapping("/{id}")
