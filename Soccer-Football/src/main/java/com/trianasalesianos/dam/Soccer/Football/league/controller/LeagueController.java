@@ -1,20 +1,18 @@
 package com.trianasalesianos.dam.Soccer.Football.league.controller;
 
-import com.trianasalesianos.dam.Soccer.Football.league.dto.LeagueDto;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.service.LeagueService;
-import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
-import com.trianasalesianos.dam.Soccer.Football.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,23 +22,26 @@ public class LeagueController {
     private final LeagueService leagueService;
 
     @GetMapping("/")
-    public List<League> getAll() {
+    public List<GetLeagueDto> getAll() {
 
-        return leagueService.findAll();
+        return leagueService.findAll()
+                .stream()
+                .map(GetLeagueDto::fromLeague)
+                .collect(Collectors.toList());
 
     }
 
 
     @GetMapping("/{id}")
-    public League getById(@PathVariable Long id) {
+    public GetLeagueDto getById(@PathVariable Long id) {
 
 
-        return leagueService.findById(id);
+        return GetLeagueDto.fromLeague(leagueService.findById(id));
 
     }
 
     @PostMapping("/")
-    public ResponseEntity<League> createNewNote(@Valid @RequestBody League league) {
+    public ResponseEntity<GetLeagueDto> createNewLeague(@Valid @RequestBody League league) {
 
         League created = leagueService.save(league);
 
@@ -51,13 +52,16 @@ public class LeagueController {
 
         return ResponseEntity
                 .created(createdURI)
-                .body(created);
+                .body(GetLeagueDto.fromLeague(created));
 
     }
 
     @PutMapping("/{id}")
-    public League edit(@PathVariable Long id, @RequestBody League edited) {
-        return leagueService.edit(id, edited);
+    public GetLeagueDto editLeague(@PathVariable Long id, @Valid @RequestBody EditLeagueDto editLeagueDto) {
+
+        League edited = leagueService.editDetails(id, editLeagueDto);
+
+        return GetLeagueDto.fromLeague(edited);
     }
 
     @DeleteMapping("/{id}")

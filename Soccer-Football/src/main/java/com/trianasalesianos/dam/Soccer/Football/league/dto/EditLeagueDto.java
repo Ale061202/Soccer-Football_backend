@@ -4,12 +4,10 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 @Builder
-public class LeagueDto {
+public class EditLeagueDto {
     @NotEmpty(message = "{leagueDto.leagueName.notempty}")
     private String league_name;
 }
