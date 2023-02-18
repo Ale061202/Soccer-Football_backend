@@ -30,7 +30,7 @@ public class LeagueService {
 
     public League findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No user with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("No league with id: " + id));
 
     }
 
