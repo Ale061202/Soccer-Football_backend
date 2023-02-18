@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.league.service;
 
 import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
@@ -37,13 +38,16 @@ public class LeagueService {
         return repository.save(league);
     }
 
-    public League edit(Long id, League edited) {
+    public League editDetails(Long id, EditLeagueDto editLeagueDto) {
+
         return repository.findById(id)
-                .map(note -> {
-                    note.setLeague_name(edited.getLeague_name());
-                    return repository.save(note);
+                .map(league -> {
+                    league.setLeague_name(editLeagueDto.getLeague_name());
+                    return repository.save(league);
                 })
-                .orElseThrow(() -> new LeagueNotFoundException());
+                .orElseThrow(() ->new EntityNotFoundException("No user with id: " + id));
+
+
     }
 
     public void delete(Long id) {
