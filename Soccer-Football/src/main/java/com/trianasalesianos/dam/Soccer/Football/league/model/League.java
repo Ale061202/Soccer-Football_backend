@@ -4,10 +4,7 @@ import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,5 +21,5 @@ public class League {
     private String league_name;
 
     @OneToMany
-    private List<Team> teamList = new ArrayList<>();
+    private List<Team> teams = new ArrayList<>();
 }

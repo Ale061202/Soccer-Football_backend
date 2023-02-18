@@ -1,7 +1,10 @@
 package com.trianasalesianos.dam.Soccer.Football.team.controller;
 
-import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
-import com.trianasalesianos.dam.Soccer.Football.post.service.PostService;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.EditTeamDto;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.GetTeamDto;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.NewTeamDto;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.team.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,57 +13,66 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/team")
 public class TeamController {
 
-    private final PostService postService;
+    private final TeamService teamService;
 
     @GetMapping("/")
-    public List<Post> getAll() {
+    public List<GetTeamDto> getAll() {
 
-        return postService.findAll();
+        return teamService.findAll()
+                .stream()
+                .map(GetTeamDto::fromTeam)
+                .collect(Collectors.toList());
 
     }
 
 
     @GetMapping("/{id}")
-    public Post getById(@PathVariable Long id) {
+    public GetTeamDto getById(@PathVariable Long id) {
 
 
-        return postService.findById(id);
+        return GetTeamDto.fromTeam(teamService.findById(id).orElse(null));
 
     }
 
     @PostMapping("/")
-    public ResponseEntity<Post> createNewNote(@Valid @RequestBody Post post) {
+    public ResponseEntity<GetTeamDto> createNewTeam(@Valid @RequestBody NewTeamDto newTeamDto) {
 
-        Post created = postService.save(post);
+        Team created = teamService.save(newTeamDto);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
+
         return ResponseEntity
                 .created(createdURI)
-                .body(created);
+                .body(GetTeamDto.fromTeam(created));
 
     }
 
     @PutMapping("/{id}")
-    public Post edit(@PathVariable Long id, @RequestBody Post edited) {
-        return postService.edit(id, edited);
+    public GetTeamDto editTeam(@PathVariable Long id, @Valid @RequestBody EditTeamDto editTeamDto) {
+
+        Team edited = teamService.editDetails(id, editTeamDto);
+
+        return GetTeamDto.fromTeam(edited);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
 
-        postService.delete(id);
+        teamService.delete(id);
 
         return ResponseEntity.noContent().build();
 
     }
+
 }

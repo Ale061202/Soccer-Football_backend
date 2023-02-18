@@ -5,9 +5,9 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 
 @Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Builder
-public class TeamDto {
-    @NotEmpty(message = "{teamDto.name.notempty}")
-    private String name;
+public class EditTeamDto {
+    @NotEmpty(message = "{teamDto.teamName.notempty}")
+    private String teamName;
 }

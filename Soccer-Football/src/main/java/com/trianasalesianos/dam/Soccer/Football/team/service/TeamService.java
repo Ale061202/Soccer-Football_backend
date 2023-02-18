@@ -3,6 +3,8 @@ package com.trianasalesianos.dam.Soccer.Football.team.service;
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.EditTeamDto;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.NewTeamDto;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import com.trianasalesianos.dam.Soccer.Football.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,23 +30,27 @@ public class TeamService {
         return repository.findAll();
     }
 
-    public Team findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No user with id: " + id));
+    public Optional<Team> findById(Long id) {
+        return repository.findById(id);
 
     }
 
-    public Team save(Team team) {
-        return repository.save(team);
+    public Team save(NewTeamDto newTeamDto) {
+        return repository.save(
+                Team.builder()
+                        .name(newTeamDto.getTeamName())
+                        .build()
+        );
     }
 
-    public Team edit(Long id, Team edited) {
+    public Team editDetails(Long id, EditTeamDto editTeamDto) {
+
         return repository.findById(id)
-                .map(note -> {
-                    note.setName(edited.getName());
-                    return repository.save(note);
+                .map(team -> {
+                    team.setName(editTeamDto.getTeamName());
+                    return repository.save(team);
                 })
-                .orElseThrow(() -> new TeamNotFoundException());
+                .orElseThrow(() ->new EntityNotFoundException("No team with id: " + id));
     }
 
     public void delete(Long id) {
