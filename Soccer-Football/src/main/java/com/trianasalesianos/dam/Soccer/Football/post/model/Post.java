@@ -18,7 +18,7 @@ public class Post {
     @GeneratedValue
     private Long id;
 
-    private String content;
+    private String image;
 
     private String title;
 

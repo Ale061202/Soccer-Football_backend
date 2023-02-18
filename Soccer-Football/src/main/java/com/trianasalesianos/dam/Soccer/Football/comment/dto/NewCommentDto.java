@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommentDto {
+public class NewCommentDto {
     @NotEmpty(message = "{commentDto.content.notempty}")
     private String content;
 }
