@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.post.service;
 
 
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.post.dto.NewPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,15 +33,21 @@ public class PostService {
 
     }
 
-    public Post save(Post post) {
-        return repository.save(post);
+    public Post save(NewPostDto newPostDto) {
+
+        return repository.save(
+                Post.builder()
+                        .title(newPostDto.getTitle())
+                        .image(newPostDto.getImage())
+                        .build()
+        );
     }
 
-    public Post edit(Long id, Post edited) {
+    public Post editDetails(Long id, Post edited) {
         return repository.findById(id)
                 .map(note -> {
                     note.setTitle(edited.getTitle());
-                    note.setContent(edited.getContent());
+                    note.setImage(edited.getImage());
                     return repository.save(note);
                 })
                 .orElseThrow(() -> new PostNotFoundException());
