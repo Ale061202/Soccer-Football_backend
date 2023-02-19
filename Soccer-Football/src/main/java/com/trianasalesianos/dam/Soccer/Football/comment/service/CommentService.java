@@ -5,7 +5,14 @@ import com.trianasalesianos.dam.Soccer.Football.comment.repository.CommentReposi
 import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
+import com.trianasalesianos.dam.Soccer.Football.search.spec.CommentSpecificationBuilder;
+import com.trianasalesianos.dam.Soccer.Football.search.spec.TeamSpecificationBuilder;
+import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -44,6 +51,15 @@ public class CommentService {
                     return repository.save(note);
                 })
                 .orElseThrow(() -> new CommentNotFoundException());
+    }
+
+    public Page<Comment> search(List<SearchCriteria> params, Pageable pageable) {
+        CommentSpecificationBuilder commentSpecificationBuilder =
+                new CommentSpecificationBuilder(params);
+        //GenericSpecificationBuilder<Person> personSpecificationBuilder =
+        //        new GenericSpecificationBuilder<>(params, Person.class);
+        Specification<Comment> spec =  commentSpecificationBuilder.build();
+        return repository.findAll(spec, pageable);
     }
 
     public void delete(Long id) {
