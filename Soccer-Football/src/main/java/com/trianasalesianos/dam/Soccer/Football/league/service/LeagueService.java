@@ -6,7 +6,12 @@ import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
+import com.trianasalesianos.dam.Soccer.Football.search.spec.LeagueSpecificationBuilder;
+import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -48,6 +53,15 @@ public class LeagueService {
                 .orElseThrow(() ->new EntityNotFoundException("No user with id: " + id));
 
 
+    }
+
+    public Page<League> search(List<SearchCriteria> params, Pageable pageable) {
+        LeagueSpecificationBuilder leagueSpecificationBuilder =
+                new LeagueSpecificationBuilder(params);
+        //GenericSpecificationBuilder<Person> personSpecificationBuilder =
+        //        new GenericSpecificationBuilder<>(params, Person.class);
+        Specification<League> spec =  leagueSpecificationBuilder.build();
+        return repository.findAll(spec, pageable);
     }
 
     public void delete(Long id) {

@@ -5,7 +5,12 @@ import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.NewPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
+import com.trianasalesianos.dam.Soccer.Football.search.spec.PostSpecificationBuilder;
+import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -42,6 +47,15 @@ public class PostService {
                         .build()
         );
     }
+    public Page<Post> search(List<SearchCriteria> params, Pageable pageable) {
+        PostSpecificationBuilder postSpecificationBuilder =
+                new PostSpecificationBuilder(params);
+        //GenericSpecificationBuilder<Person> personSpecificationBuilder =
+        //        new GenericSpecificationBuilder<>(params, Person.class);
+        Specification<Post> spec =  postSpecificationBuilder.build();
+        return repository.findAll(spec, pageable);
+    }
+
 
     public Post editDetails(Long id, Post edited) {
         return repository.findById(id)
