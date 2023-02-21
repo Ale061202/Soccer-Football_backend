@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +31,8 @@ public class LeagueService {
         return repository.findAll();
     }
 
-    public League findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No league with id: " + id));
+    public Optional<League> findById(Long id) {
+        return repository.findById(id);
 
     }
 

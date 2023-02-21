@@ -4,7 +4,10 @@ import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.service.LeagueService;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.team.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,6 +27,8 @@ public class LeagueController {
 
     private final LeagueService leagueService;
 
+    private final TeamService teamService;
+
     @GetMapping("/")
     public List<GetLeagueDto> getAll() {
 
@@ -30,15 +36,6 @@ public class LeagueController {
                 .stream()
                 .map(GetLeagueDto::fromLeague)
                 .collect(Collectors.toList());
-
-    }
-
-
-    @GetMapping("/{id}")
-    public GetLeagueDto getById(@PathVariable Long id) {
-
-
-        return GetLeagueDto.fromLeague(leagueService.findById(id));
 
     }
 
@@ -56,6 +53,21 @@ public class LeagueController {
                 .created(createdURI)
                 .body(GetLeagueDto.fromLeague(created));
 
+    }
+
+    @PostMapping("/league/{id}/team/{id2}")
+    public ResponseEntity<League> addTeamLeague(@PathVariable Long id, @PathVariable Long id2){
+        Optional<League> l = leagueService.findById(id);
+        if (l.isPresent()){
+            League league = l.get();
+            Optional<Team> t = teamService.findById(id2);
+            if (t.isPresent()){
+                league.addTeam(t.get());
+                leagueService.save(league);
+                return ResponseEntity.ok(league);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PutMapping("/{id}")

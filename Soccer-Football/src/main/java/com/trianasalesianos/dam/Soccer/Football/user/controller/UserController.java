@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @RestController
@@ -48,7 +49,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
     }
 
-
+    @Transactional
     @PostMapping("/auth/login")
     public ResponseEntity<JwtUserResponse> login(@RequestBody LoginRequest loginRequest) {
 
