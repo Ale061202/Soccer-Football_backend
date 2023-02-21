@@ -24,10 +24,10 @@ public class Post {
 
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Comment> commentList = new ArrayList<>();
 
 

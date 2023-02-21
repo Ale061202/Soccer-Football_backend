@@ -1,12 +1,19 @@
 package com.trianasalesianos.dam.Soccer.Football.league.controller;
 
+import com.trianasalesianos.dam.Soccer.Football.comment.dto.GetCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.service.LeagueService;
+import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
+import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteriaExtractor;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import com.trianasalesianos.dam.Soccer.Football.team.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,12 +37,12 @@ public class LeagueController {
     private final TeamService teamService;
 
     @GetMapping("/")
-    public List<GetLeagueDto> getAll() {
+    public Page<GetLeagueDto> getAll(@RequestParam(value = "search", defaultValue = "") String search,
+                                      @PageableDefault(size = 15, page = 0, sort = {"uploadDate"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
-        return leagueService.findAll()
-                .stream()
-                .map(GetLeagueDto::fromLeague)
-                .collect(Collectors.toList());
+        List<SearchCriteria> params = SearchCriteriaExtractor.extractSearchCriteriaList(search);
+
+        return leagueService.search(params,pageable).map(GetLeagueDto::fromLeague);
 
     }
 

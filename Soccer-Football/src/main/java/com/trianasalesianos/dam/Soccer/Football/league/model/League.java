@@ -22,7 +22,7 @@ public class League {
 
     private String league_name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Team> teams = new ArrayList<>();
 
     public void addTeam(Team team) {
