@@ -51,10 +51,10 @@ public class User implements UserDetails {
 
     private Date birth_date;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Team> teamList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Post> postList = new ArrayList<>();
 
     @Builder.Default

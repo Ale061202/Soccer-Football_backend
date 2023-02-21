@@ -23,7 +23,7 @@ public class GetLeagueDto {
         return GetLeagueDto.builder()
                 .id(league.getId())
                 .league_name(league.getLeague_name())
-                .teams(league.getTeams())
+                //.teams(league.getTeams())
                 .build();
     }
 }

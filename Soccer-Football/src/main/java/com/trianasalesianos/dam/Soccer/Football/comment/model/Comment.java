@@ -3,13 +3,12 @@ package com.trianasalesianos.dam.Soccer.Football.comment.model;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
@@ -21,6 +20,6 @@ public class Comment {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
 }
