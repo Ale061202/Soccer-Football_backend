@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.post.service;
 
 
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.files.service.StorageService;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.NewPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
@@ -12,14 +13,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository repository;
+
+    private final StorageService storageService;
 
 
     public List<Post> findAll() {
@@ -38,15 +43,19 @@ public class PostService {
 
     }
 
-    public Post save(NewPostDto newPostDto) {
+    @Transactional
+    public Post save(NewPostDto createPostDto, MultipartFile file) {
+        String filename = storageService.store(file);
 
-        return repository.save(
+        Post post = repository.save(
                 Post.builder()
-                        .title(newPostDto.getTitle())
-                        .image(newPostDto.getImage())
+                        .title(createPostDto.getTitle())
+                        .image(filename)
                         .build()
         );
+        return post;
     }
+
     public Page<Post> search(List<SearchCriteria> params, Pageable pageable) {
         PostSpecificationBuilder postSpecificationBuilder =
                 new PostSpecificationBuilder(params);

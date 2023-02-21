@@ -6,7 +6,6 @@ import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.service.PostService;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteriaExtractor;
-import com.trianasalesianos.dam.Soccer.Football.team.dto.GetTeamDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +13,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,9 +47,10 @@ public class PostController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<GetPostDto> createNewNote(@Valid @RequestBody NewPostDto newPostDto) {
+    public ResponseEntity<GetPostDto> createNewNote(@Valid @RequestPart("file") MultipartFile file,
+                                                    @RequestPart("post") NewPostDto newPost) {
 
-        Post created = postService.save(newPostDto);
+        Post created = postService.save(newPost,file);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()

@@ -1,8 +1,5 @@
 package com.trianasalesianos.dam.Soccer.Football.team.service;
 
-import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
-import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
-import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.search.spec.TeamSpecificationBuilder;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import com.trianasalesianos.dam.Soccer.Football.team.dto.EditTeamDto;
@@ -16,7 +13,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 

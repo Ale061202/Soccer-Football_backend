@@ -1,11 +1,8 @@
 package com.trianasalesianos.dam.Soccer.Football.league.service;
 
-import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
-import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
-import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.search.spec.LeagueSpecificationBuilder;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import lombok.RequiredArgsConstructor;

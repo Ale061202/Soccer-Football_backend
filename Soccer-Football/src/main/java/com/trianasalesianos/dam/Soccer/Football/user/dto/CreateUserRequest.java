@@ -1,8 +1,10 @@
 package com.trianasalesianos.dam.Soccer.Football.user.dto;
 
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import lombok.*;
 
 import javax.persistence.Entity;
+import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
@@ -13,11 +15,11 @@ public class CreateUserRequest {
 
     private String password;
 
-    private String verifyPassword;
-
     private String avatar;
 
     private String first_name;
 
     private String last_name;
+
+    private List<Long> teamList;
 }
