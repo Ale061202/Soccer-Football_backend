@@ -28,6 +28,7 @@ public class UserService {
                 .avatar(createUserRequest.getAvatar())
                 .first_name(createUserRequest.getFirst_name())
                 .last_name(createUserRequest.getLast_name())
+                //.teamList(createUserRequest.getTeamList())
                 .roles(roles)
                 .build();
 

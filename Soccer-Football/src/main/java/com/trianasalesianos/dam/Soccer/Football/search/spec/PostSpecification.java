@@ -2,7 +2,6 @@ package com.trianasalesianos.dam.Soccer.Football.search.spec;
 
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
-import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.jpa.domain.Specification;
