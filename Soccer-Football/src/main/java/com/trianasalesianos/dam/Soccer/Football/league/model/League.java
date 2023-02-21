@@ -3,12 +3,14 @@ package com.trianasalesianos.dam.Soccer.Football.league.model;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
