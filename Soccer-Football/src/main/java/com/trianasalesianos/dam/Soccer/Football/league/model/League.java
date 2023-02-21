@@ -22,4 +22,12 @@ public class League {
 
     @OneToMany
     private List<Team> teams = new ArrayList<>();
+
+    public void addTeam(Team team) {
+        teams.add(team);
+    }
+
+    public void deleteTeam(Team team) {
+        teams.remove(team);
+    }
 }
