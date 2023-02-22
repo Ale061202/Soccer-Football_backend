@@ -38,7 +38,7 @@ public class LeagueController {
 
     @GetMapping("/")
     public Page<GetLeagueDto> getAll(@RequestParam(value = "search", defaultValue = "") String search,
-                                      @PageableDefault(size = 15, page = 0, sort = {"uploadDate"}, direction = Sort.Direction.DESC) Pageable pageable) {
+                                      @PageableDefault(size = 15, page = 0 )Pageable pageable) {
 
         List<SearchCriteria> params = SearchCriteriaExtractor.extractSearchCriteriaList(search);
 
@@ -63,15 +63,15 @@ public class LeagueController {
     }
 
     @PostMapping("/league/{id}/team/{id2}")
-    public ResponseEntity<League> addTeamLeague(@PathVariable Long id, @PathVariable Long id2){
+    public ResponseEntity<GetLeagueDto> addTeamLeague(@PathVariable Long id, @PathVariable Long id2){
         Optional<League> l = leagueService.findById(id);
-        if (l.isPresent()){
+        if (!l.isEmpty()){
             League league = l.get();
             Optional<Team> t = teamService.findById(id2);
             if (t.isPresent()){
                 league.addTeam(t.get());
                 leagueService.save(league);
-                return ResponseEntity.ok(league);
+                return ResponseEntity.ok(GetLeagueDto.fromLeague(league));
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

@@ -44,17 +44,28 @@ public class PostService {
     }
 
     @Transactional
-    public Post save(NewPostDto createPostDto, MultipartFile file) {
-        String filename = storageService.store(file);
+    public Post save(NewPostDto createPostDto) {
 
         Post post = repository.save(
                 Post.builder()
                         .title(createPostDto.getTitle())
-                        .image(filename)
                         .build()
         );
         return post;
     }
+
+    /*@Transactional
+    public Post save(NewPostDto newPostDto, MultipartFile file) {
+        String filename = storageService.store(file);
+
+        Post post = repository.save(
+                Post.builder()
+                        .title(newPostDto.getTitle())
+                        .image(filename)
+                        .build()
+        );
+        return post;
+    }*/
 
     public Page<Post> search(List<SearchCriteria> params, Pageable pageable) {
         PostSpecificationBuilder postSpecificationBuilder =

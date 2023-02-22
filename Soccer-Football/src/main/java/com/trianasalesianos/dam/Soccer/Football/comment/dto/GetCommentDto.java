@@ -12,13 +12,10 @@ public class GetCommentDto {
 
     private String content;
 
-    private String postTitle;
-
     public static GetCommentDto fromComment(Comment comment){
         return GetCommentDto.builder()
                 .id(comment.getId())
                 .content(comment.getContent())
-                .postTitle(comment.getPost().getTitle())
                 .build();
     }
 }

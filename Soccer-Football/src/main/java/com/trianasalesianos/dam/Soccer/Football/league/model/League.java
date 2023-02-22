@@ -6,7 +6,6 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
+@Table(name="league_entity")
 public class League {
 
     @Id
@@ -23,9 +23,7 @@ public class League {
 
     private String league_name;
 
-    private LocalDateTime uploadDate = LocalDateTime.now();
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "league")
     private List<Team> teams = new ArrayList<>();
 
     public void addTeam(Team team) {
@@ -35,4 +33,12 @@ public class League {
     public void deleteTeam(Team team) {
         teams.remove(team);
     }
+
+    /*public String getTeamNames(List<Team> team){
+        String result = null;
+        for (Team name : team){
+            result = name.getName();
+        }
+        return result;
+    }*/
 }

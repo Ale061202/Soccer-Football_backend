@@ -2,6 +2,8 @@ package com.trianasalesianos.dam.Soccer.Football.user.controller;
 
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.access.JwtProvider;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshToken;
+import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenException;
+import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenRequest;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenService;
 import com.trianasalesianos.dam.Soccer.Football.user.dto.*;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
@@ -47,6 +49,27 @@ public class UserController {
         User user = userService.createUserWithAdminRole(createUserRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromUser(user));
+    }
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        String refreshToken = refreshTokenRequest.getRefreshToken();
+
+        return refreshTokenService.findByToken(refreshToken)
+                .map(refreshTokenService::verify)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = jwtProvider.generateToken(user);
+                    refreshTokenService.deleteByUser(user);
+                    RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user);
+                    return ResponseEntity.status(HttpStatus.CREATED)
+                            .body(JwtUserResponse.builder()
+                                    .token(token)
+                                    .refreshToken(refreshToken2.getToken())
+                                    .build());
+                })
+                .orElseThrow(() -> new RefreshTokenException("Refresh token not found"));
+
     }
 
     @Transactional
