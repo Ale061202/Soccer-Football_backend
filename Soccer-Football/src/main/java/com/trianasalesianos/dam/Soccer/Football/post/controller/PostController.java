@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +48,9 @@ public class PostController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<GetPostDto> createNewNote(@Valid @RequestPart("file") MultipartFile file,
-                                                    @RequestPart("post") NewPostDto newPost) {
+    public ResponseEntity<GetPostDto> createNewNote(@Valid @RequestBody NewPostDto newPost) {
 
-        Post created = postService.save(newPost,file);
+        Post created = postService.save(newPost);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -63,6 +63,16 @@ public class PostController {
 
     }
 
+    /*@PostMapping("/")
+    public ResponseEntity<Post> create(
+            @RequestPart("file") MultipartFile file,
+            @RequestPart("post") NewPostDto newPost
+    ) {
+        Post post = postService.save(newPost,file);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(post);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
 
@@ -70,5 +80,5 @@ public class PostController {
 
         return ResponseEntity.noContent().build();
 
-    }
+    }*/
 }

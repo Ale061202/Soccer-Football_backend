@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
+@Table(name="post_entity")
 public class Post {
 
     @Id

@@ -40,7 +40,7 @@ public class TeamService {
     public Team save(NewTeamDto newTeamDto) {
         return repository.save(
                 Team.builder()
-                        .name(newTeamDto.getTeamName())
+                        .teamName(newTeamDto.getTeamName())
                         .build()
         );
     }
@@ -49,7 +49,7 @@ public class TeamService {
 
         return repository.findById(id)
                 .map(team -> {
-                    team.setName(editTeamDto.getTeamName());
+                    team.setTeamName(editTeamDto.getTeamName());
                     return repository.save(team);
                 })
                 .orElseThrow(() ->new EntityNotFoundException("No team with id: " + id));
