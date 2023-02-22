@@ -17,12 +17,20 @@ public class GetLeagueDto {
 
     private String league_name;
 
+    private List<GetTeamDto> teams = new ArrayList<>();
+
 
 
     public static GetLeagueDto fromLeague(League league){
         return GetLeagueDto.builder()
                 .id(league.getId())
                 .league_name(league.getLeague_name())
+                .teams(league.getTeams().stream()
+                        .map(l -> GetTeamDto.builder()
+                                .id(l.getId())
+                                .teamName(l.getTeamName())
+                                .build())
+                        .toList())
                 .build();
     }
 }

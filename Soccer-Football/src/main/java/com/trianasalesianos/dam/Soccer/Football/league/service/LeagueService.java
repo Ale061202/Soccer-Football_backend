@@ -1,10 +1,16 @@
 package com.trianasalesianos.dam.Soccer.Football.league.service;
 
+import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.repository.LeagueRepository;
 import com.trianasalesianos.dam.Soccer.Football.search.spec.LeagueSpecificationBuilder;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +25,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LeagueService {
     private final LeagueRepository repository;
+
+    private final TeamRepository teamRepository;
 
 
     public List<League> findAll() {
@@ -38,6 +46,15 @@ public class LeagueService {
 
     public League save(League league) {
         return repository.save(league);
+    }
+
+    public GetLeagueDto addTeam(Long leagueId, Long teamId){
+        League l = repository.findById(leagueId).orElseThrow(() -> new LeagueNotFoundException());
+        Team t = teamRepository.findById(teamId).orElseThrow(() -> new TeamNotFoundException());
+
+        l.getTeams().add(t);
+
+        return GetLeagueDto.fromLeague(repository.save(l));
     }
 
     public League editDetails(Long id, EditLeagueDto editLeagueDto) {

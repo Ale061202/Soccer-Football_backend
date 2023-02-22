@@ -12,8 +12,6 @@ public class NewTeamDto {
     @UniqueUsername(message = "{teamDto.teamName.unique}")
     @NotEmpty(message = "{teamDto.teamName.notempty}")
     private String teamName;
-    @NotEmpty(message = "{teamDto.leagueId.notempty}")
-    private Long leagueId;
 
 
 }

@@ -62,19 +62,9 @@ public class LeagueController {
 
     }
 
-    @PostMapping("/league/{id}/team/{id2}")
-    public ResponseEntity<GetLeagueDto> addTeamLeague(@PathVariable Long id, @PathVariable Long id2){
-        Optional<League> l = leagueService.findById(id);
-        if (!l.isEmpty()){
-            League league = l.get();
-            Optional<Team> t = teamService.findById(id2);
-            if (t.isPresent()){
-                league.addTeam(t.get());
-                leagueService.save(league);
-                return ResponseEntity.ok(GetLeagueDto.fromLeague(league));
-            }
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @PostMapping("/league/{leagueID}/team/{teamId}")
+    public GetLeagueDto addTeamLeague(@PathVariable Long leagueID, @PathVariable Long teamId){
+        return leagueService.addTeam(leagueID,teamId);
     }
 
     @PutMapping("/{id}")

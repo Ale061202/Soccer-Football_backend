@@ -10,6 +10,4 @@ import javax.validation.constraints.NotEmpty;
 public class NewLeagueDto {
     @NotEmpty(message = "{leagueDto.leagueName.notempty}")
     private String league_name;
-    @NotEmpty(message = "{leagueDto.teamId.notempty}")
-    private Long teamId;
 }
