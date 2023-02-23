@@ -1,7 +1,6 @@
 package com.trianasalesianos.dam.Soccer.Football.league.model;
 
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
-
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,16 +10,12 @@ import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@AllArgsConstructor @NoArgsConstructor
-@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Builder
 @Table(name="league_entity")
-@NamedEntityGraph
-        (name = "league-with-teams",
-            attributeNodes = {
-        @NamedAttributeNode(value = "teams")
-            }
-        )
 public class League {
 
     @Id
@@ -29,8 +24,7 @@ public class League {
 
     private String league_name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "league")
-    @Builder.Default
+    @OneToMany(mappedBy = "league")
     private List<Team> teams = new ArrayList<>();
 
     public void addTeam(Team team) {
