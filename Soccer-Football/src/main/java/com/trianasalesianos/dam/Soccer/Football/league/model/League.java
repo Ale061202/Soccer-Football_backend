@@ -15,6 +15,12 @@ import java.util.List;
 @Getter @Setter
 @Builder
 @Table(name="league_entity")
+@NamedEntityGraph
+        (name = "league-with-teams",
+            attributeNodes = {
+        @NamedAttributeNode(value = "teams")
+            }
+        )
 public class League {
 
     @Id
@@ -23,7 +29,8 @@ public class League {
 
     private String league_name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "league")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "league")
+    @Builder.Default
     private List<Team> teams = new ArrayList<>();
 
     public void addTeam(Team team) {
@@ -34,11 +41,4 @@ public class League {
         teams.remove(team);
     }
 
-    /*public String getTeamNames(List<Team> team){
-        String result = null;
-        for (Team name : team){
-            result = name.getName();
-        }
-        return result;
-    }*/
 }
