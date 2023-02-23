@@ -1,6 +1,8 @@
 package com.trianasalesianos.dam.Soccer.Football.post.controller;
 
+import com.trianasalesianos.dam.Soccer.Football.comment.dto.GetCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.GetPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.NewPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
@@ -178,6 +180,11 @@ public class PostController {
         Post post = postService.save(newPost,file);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(post);
+    }*/
+
+    @PostMapping("/{postId}/comment/{commentId}")
+    public ResponseEntity<GetPostDto> addCommentToPost(@PathVariable Long postId, @PathVariable Long commentId){
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.addTeam(postId,commentId));
     }
 
     @DeleteMapping("/{id}")
@@ -187,5 +194,5 @@ public class PostController {
 
         return ResponseEntity.noContent().build();
 
-    }*/
+    }
 }

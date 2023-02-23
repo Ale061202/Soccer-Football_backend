@@ -31,5 +31,15 @@ public class Post {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
+    public void addCommentToPost(Comment c){
+       comments.add(c);
+       c.setPost(this);
+    }
+
+    public void deleteCommentToPost(Comment c){
+        comments.remove(c);
+        c.setPost(this);
+    }
+
 
 }

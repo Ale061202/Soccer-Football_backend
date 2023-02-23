@@ -1,13 +1,22 @@
 package com.trianasalesianos.dam.Soccer.Football.post.service;
 
 
+import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
+import com.trianasalesianos.dam.Soccer.Football.comment.repository.CommentRepository;
+import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.files.service.StorageService;
+import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
+import com.trianasalesianos.dam.Soccer.Football.league.model.League;
+import com.trianasalesianos.dam.Soccer.Football.post.dto.GetPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.NewPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
 import com.trianasalesianos.dam.Soccer.Football.search.spec.PostSpecificationBuilder;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +32,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository repository;
+
+    private final CommentRepository commentRepository;
 
     private final StorageService storageService;
 
@@ -90,6 +101,16 @@ public class PostService {
     public void delete(Long id) {
         if (repository.existsById(id))
             repository.deleteById(id);
+    }
+
+    public GetPostDto addTeam(Long postId, Long commentId){
+        Post p = repository.findById(postId).orElseThrow(() -> new PostNotFoundException());
+        Comment c = commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException());
+
+        p.addCommentToPost(c);
+
+
+        return GetPostDto.fromPost(repository.save(p));
     }
 
 }

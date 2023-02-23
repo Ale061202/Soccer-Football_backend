@@ -1,11 +1,16 @@
 package com.trianasalesianos.dam.Soccer.Football.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.GetTeamDto;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @SuperBuilder

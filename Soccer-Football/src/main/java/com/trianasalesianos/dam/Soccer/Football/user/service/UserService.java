@@ -1,7 +1,12 @@
 package com.trianasalesianos.dam.Soccer.Football.user.service;
 
 
+import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.exception.UserNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.team.repository.TeamRepository;
 import com.trianasalesianos.dam.Soccer.Football.user.dto.CreateUserRequest;
+import com.trianasalesianos.dam.Soccer.Football.user.dto.UserResponse;
 import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import com.trianasalesianos.dam.Soccer.Football.user.model.UserRole;
 import com.trianasalesianos.dam.Soccer.Football.user.repository.UserRepository;
@@ -9,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +25,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
+    private final TeamRepository teamRepository;
+
     public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
         User user =  User.builder()
                 .username(createUserRequest.getUsername())
@@ -28,11 +34,19 @@ public class UserService {
                 .avatar(createUserRequest.getAvatar())
                 .first_name(createUserRequest.getFirst_name())
                 .last_name(createUserRequest.getLast_name())
-                //.teamList(createUserRequest.getTeamList())
                 .roles(roles)
                 .build();
 
         return userRepository.save(user);
+    }
+
+    public UserResponse addTeam (UUID user_id, Long team_id){
+        User u = userRepository.findById(user_id).orElseThrow(() -> new UserNotFoundException());
+        Team t = teamRepository.findById(team_id).orElseThrow(() -> new TeamNotFoundException());
+
+        u.addTeamToUSer(t);
+
+        return UserResponse.fromUser(userRepository.save(u));
     }
 
     public User createUserWithUserRole(CreateUserRequest createUserRequest) {

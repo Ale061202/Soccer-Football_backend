@@ -21,7 +21,8 @@ public class Comment {
 
     private String content;
 
-    private LocalDateTime uploadDate = LocalDateTime.now();
+    private String author;
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
