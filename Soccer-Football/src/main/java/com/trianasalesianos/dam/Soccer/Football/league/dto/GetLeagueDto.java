@@ -2,7 +2,6 @@ package com.trianasalesianos.dam.Soccer.Football.league.dto;
 
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.team.dto.GetTeamDto;
-import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import lombok.*;
 
 import java.util.ArrayList;

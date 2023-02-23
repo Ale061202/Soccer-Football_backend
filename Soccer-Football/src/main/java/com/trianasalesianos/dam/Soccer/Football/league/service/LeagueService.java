@@ -1,6 +1,5 @@
 package com.trianasalesianos.dam.Soccer.Football.league.service;
 
-import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.EditLeagueDto;
