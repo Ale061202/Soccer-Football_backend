@@ -33,6 +33,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,6 +44,11 @@ public class UserController {
     private final AuthenticationManager authManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+
+    @PostMapping("/user/{userUuid}/team/{teamId}")
+    public ResponseEntity<UserResponse> addTeamToUser(UUID userUuid, Long teamId){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addTeam(userUuid,teamId));
+    }
 
     @Operation(summary = "Register a User")
     @ApiResponses(value = {

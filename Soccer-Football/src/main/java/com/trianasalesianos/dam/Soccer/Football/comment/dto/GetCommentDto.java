@@ -12,10 +12,13 @@ public class GetCommentDto {
 
     private String content;
 
+    private String author;
+
     public static GetCommentDto fromComment(Comment comment){
         return GetCommentDto.builder()
                 .id(comment.getId())
                 .content(comment.getContent())
+                .author(comment.getAuthor())
                 .build();
     }
 }

@@ -45,42 +45,39 @@ public class CommentController {
                                     value = """
                                             [
                                                   {
-                                                       "content": [
-                                                           {
-                                                               "id": 5,
-                                                               "content": "Este es el nuevo contenido"
-                                                           },
-                                                           {
-                                                               "id": 4,
-                                                               "content": "Este es el nuevo contenido"
-                                                           }
-                                                       ],
-                                                       "pageable": {
-                                                           "sort": {
-                                                               "empty": false,
-                                                               "sorted": true,
-                                                               "unsorted": false
-                                                           },
-                                                           "offset": 0,
-                                                           "pageNumber": 0,
-                                                           "pageSize": 15,
-                                                           "unpaged": false,
-                                                           "paged": true
-                                                       },
-                                                       "last": true,
-                                                       "totalPages": 1,
-                                                       "totalElements": 2,
-                                                       "size": 15,
-                                                       "number": 0,
-                                                       "sort": {
-                                                           "empty": false,
-                                                           "sorted": true,
-                                                           "unsorted": false
-                                                       },
-                                                       "first": true,
-                                                       "numberOfElements": 2,
-                                                       "empty": false
-                                                   }
+                                                      "content": [
+                                                          {
+                                                              "id": 1,
+                                                              "content": "Este es el nuevo contenido",
+                                                              "author": "Mario"
+                                                          }
+                                                      ],
+                                                      "pageable": {
+                                                          "sort": {
+                                                              "empty": true,
+                                                              "sorted": false,
+                                                              "unsorted": true
+                                                          },
+                                                          "offset": 0,
+                                                          "pageNumber": 0,
+                                                          "pageSize": 15,
+                                                          "paged": true,
+                                                          "unpaged": false
+                                                      },
+                                                      "last": true,
+                                                      "totalElements": 1,
+                                                      "totalPages": 1,
+                                                      "size": 15,
+                                                      "number": 0,
+                                                      "sort": {
+                                                          "empty": true,
+                                                          "sorted": false,
+                                                          "unsorted": true
+                                                      },
+                                                      "first": true,
+                                                      "numberOfElements": 1,
+                                                      "empty": false
+                                                  }
                                              ]                                         
                                             """
                             )}
@@ -91,7 +88,7 @@ public class CommentController {
     })
     @GetMapping("/")
     public Page<GetCommentDto> getAll(@RequestParam(value = "search", defaultValue = "") String search,
-                                      @PageableDefault(size = 15, page = 0, sort = {"uploadDate"}, direction = Sort.Direction.DESC) Pageable pageable) {
+                                      @PageableDefault(size = 15, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = SearchCriteriaExtractor.extractSearchCriteriaList(search);
 
@@ -109,9 +106,10 @@ public class CommentController {
                                     value = """
                                             [
                                                   {
-                                                      "id": 4,
-                                                      "content": "Este es el nuevo contenido"
-                                                  }
+                                                       "id": 1,
+                                                       "content": "Este es el nuevo contenido",
+                                                       "author": "Mario"
+                                                   }
                                              ]                                         
                                             """
                             )}

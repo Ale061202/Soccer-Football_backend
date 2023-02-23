@@ -108,7 +108,7 @@ public class LeagueController {
     @Operation(summary = "Create a League")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Comment Created",
+                    description = "League Created",
                     content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = League.class)),
                             examples = {@ExampleObject(
@@ -143,6 +143,33 @@ public class LeagueController {
 
     }
 
+    @Operation(summary = "Add a Team")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Added a Team to a League",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = League.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                  {
+                                                       "id": 2,
+                                                       "league_name": "La Liga",
+                                                       "teams": [
+                                                           {
+                                                               "id": 1,
+                                                               "teamName": "Betis"
+                                                           }
+                                                       ]
+                                                   }
+                                             ]                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No Team Addition",
+                    content = @Content),
+    })
     @PostMapping("/{leagueID}/team/{teamId}")
     public ResponseEntity<GetLeagueDto> addTeamLeague(@PathVariable Long leagueID, @PathVariable Long teamId){
         return ResponseEntity.status(HttpStatus.CREATED).body(leagueService.addTeam(leagueID,teamId));

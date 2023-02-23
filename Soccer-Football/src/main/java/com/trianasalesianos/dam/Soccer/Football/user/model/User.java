@@ -70,6 +70,16 @@ public class User implements UserDetails {
     @Convert(converter = SetRoleAttributeConverter.class)
     private Set<UserRole> roles;
 
+    public void addTeamToUSer(Team t){
+        teams.add(t);
+        t.setUser(this);
+    }
+
+    public void deleteTeamToUser(Team t){
+        teams.remove(t);
+        t.setUser(this);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
