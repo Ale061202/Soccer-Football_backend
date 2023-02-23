@@ -21,10 +21,10 @@ public class Team {
     private String teamName;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "league_id")
     private League league;
 
-    private LocalDateTime uploadDate = LocalDateTime.now();
-
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 }

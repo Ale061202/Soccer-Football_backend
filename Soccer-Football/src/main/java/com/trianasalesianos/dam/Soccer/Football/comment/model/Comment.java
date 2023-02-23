@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
-@Table(name="comment_entity")
 public class Comment {
 
     @Id
@@ -25,5 +24,6 @@ public class Comment {
     private LocalDateTime uploadDate = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id")
     private Post post;
 }

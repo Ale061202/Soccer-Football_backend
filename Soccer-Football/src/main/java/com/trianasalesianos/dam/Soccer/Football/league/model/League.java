@@ -15,7 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@Table(name="league_entity")
 public class League {
 
     @Id
@@ -27,12 +26,16 @@ public class League {
     @OneToMany(mappedBy = "league")
     private List<Team> teams = new ArrayList<>();
 
-    public void addTeam(Team team) {
-        teams.add(team);
+    //Helper Team
+
+    public void addTeamToLeague(Team t){
+        teams.add(t);
+        t.setLeague(this);
     }
 
-    public void deleteTeam(Team team) {
-        teams.remove(team);
+    public void removeTeamToLeague(Team t){
+        teams.remove(t);
+        t.setLeague(null);
     }
 
 }
