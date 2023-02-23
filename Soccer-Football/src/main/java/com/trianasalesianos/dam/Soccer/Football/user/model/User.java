@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.user.model;
 
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.utils.SetRoleAttributeConverter;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
@@ -51,11 +52,11 @@ public class User implements UserDetails {
 
     private Date birth_date;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Team> teamList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Team> teams = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Post> postList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
 
     @Builder.Default
     private boolean accountNonExpired = true;
@@ -66,7 +67,7 @@ public class User implements UserDetails {
     @Builder.Default
     private boolean enabled = true;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @Convert(converter = SetRoleAttributeConverter.class)
     private Set<UserRole> roles;
 
     @Override

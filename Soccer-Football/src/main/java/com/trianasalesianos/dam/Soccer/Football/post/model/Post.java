@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
-@Table(name="post_entity")
 public class Post {
 
     @Id
@@ -26,10 +25,11 @@ public class Post {
     private String title;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Comment> commentList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
 
 
 }

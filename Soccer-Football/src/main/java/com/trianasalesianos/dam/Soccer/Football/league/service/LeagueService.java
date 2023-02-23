@@ -51,7 +51,8 @@ public class LeagueService {
         League l = repository.findById(leagueId).orElseThrow(() -> new LeagueNotFoundException());
         Team t = teamRepository.findById(teamId).orElseThrow(() -> new TeamNotFoundException());
 
-        l.getTeams().add(t);
+        l.addTeamToLeague(t);
+
 
         return GetLeagueDto.fromLeague(repository.save(l));
     }
