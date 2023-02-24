@@ -13,6 +13,5 @@ import javax.validation.constraints.NotEmpty;
 public class NewPostDto {
     @NotEmpty(message = "{postDto.title.notempty}")
     private String title;
-    @URL(message = "{postDto.image.url}")
-    private String image;
+
 }

@@ -23,7 +23,8 @@ public class League {
 
     private String league_name;
 
-    @OneToMany(mappedBy = "league")
+    @OneToMany(mappedBy = "league",fetch = FetchType.LAZY)
+    @Builder.Default
     private List<Team> teams = new ArrayList<>();
 
     //Helper Team

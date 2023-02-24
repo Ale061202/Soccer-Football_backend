@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
@@ -20,6 +21,7 @@ public class GetPostDto {
 
     private List<GetCommentDto> comments = new ArrayList<>();
 
+
     public static GetPostDto fromPost(Post post){
         return GetPostDto.builder()
                 .id(post.getId())
@@ -31,7 +33,7 @@ public class GetPostDto {
                                 .author(c.getAuthor())
                                 .content(c.getContent())
                                 .build())
-                        .toList())
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

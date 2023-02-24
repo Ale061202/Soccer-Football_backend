@@ -50,8 +50,6 @@ public class User implements UserDetails {
 
     private String last_name;
 
-    private Date birth_date;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Team> teams = new ArrayList<>();
 
