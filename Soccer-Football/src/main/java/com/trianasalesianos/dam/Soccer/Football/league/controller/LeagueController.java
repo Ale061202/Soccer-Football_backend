@@ -7,6 +7,7 @@ import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.league.service.LeagueService;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteriaExtractor;
+import com.trianasalesianos.dam.Soccer.Football.team.dto.GetTeamDto;
 import com.trianasalesianos.dam.Soccer.Football.team.service.TeamService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -103,6 +104,11 @@ public class LeagueController {
 
         return leagueService.search(params,pageable).map(GetLeagueDto::fromLeague);
 
+    }
+
+    @GetMapping("/{id}")
+    public GetLeagueDto getById(@PathVariable Long id){
+        return GetLeagueDto.fromLeague(leagueService.findById(id).orElse(null));
     }
 
     @Operation(summary = "Create a League")

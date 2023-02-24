@@ -3,6 +3,7 @@ package com.trianasalesianos.dam.Soccer.Football.post.controller;
 import com.trianasalesianos.dam.Soccer.Football.comment.dto.GetCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
+import com.trianasalesianos.dam.Soccer.Football.league.model.League;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.GetPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.dto.NewPostDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
@@ -145,7 +146,6 @@ public class PostController {
                                             [
                                                   {
                                                        "id": 2,
-                                                       "image": null,
                                                        "title": "Nueva imagen"
                                                    }
                                              ]                                         
@@ -156,36 +156,64 @@ public class PostController {
                     description = "No Post Creation Request",
                     content = @Content),
     })
+
     @PostMapping("/")
-    public ResponseEntity<GetPostDto> createNewNote(@Valid @RequestBody NewPostDto newPost) {
-
-        Post created = postService.save(newPost);
-
-        URI createdURI = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(created.getId()).toUri();
-
-        return ResponseEntity
-                .created(createdURI)
-                .body(GetPostDto.fromPost(created));
-
-    }
-
-    /*@PostMapping("/")
-    public ResponseEntity<Post> create(
+    public ResponseEntity<GetPostDto> create(
             @RequestPart("file") MultipartFile file,
             @RequestPart("post") NewPostDto newPost
     ) {
-        Post post = postService.save(newPost,file);
+        GetPostDto post = postService.save(newPost,file);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(post);
-    }*/
+    }
+    @Operation(summary = "Add a Comment")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Added a Comment to a Post",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Post.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                  {
+                                                       "id": 2,
+                                                       "league_name": "La Liga",
+                                                       "teams": [
+                                                           {
+                                                               "id": 1,
+                                                               "teamName": "Betis"
+                                                           }
+                                                       ]
+                                                   }
+                                             ]                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No Comment Addition",
+                    content = @Content),
+    })
 
     @PostMapping("/{postId}/comment/{commentId}")
     public ResponseEntity<GetPostDto> addCommentToPost(@PathVariable Long postId, @PathVariable Long commentId){
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.addTeam(postId,commentId));
     }
+
+    @Operation(summary = "Delete Post")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Post removed Successfully",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Post.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                
+                                            }                                        
+                                            """
+                            )}
+                    )}),
+    })
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {

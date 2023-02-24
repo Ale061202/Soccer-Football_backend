@@ -54,8 +54,8 @@ public class PostService {
 
     }
 
-    @Transactional
-    public Post save(NewPostDto createPostDto) {
+
+    public Post saveNew(NewPostDto createPostDto) {
 
         Post post = repository.save(
                 Post.builder()
@@ -65,8 +65,8 @@ public class PostService {
         return post;
     }
 
-    /*@Transactional
-    public Post save(NewPostDto newPostDto, MultipartFile file) {
+    @Transactional
+    public GetPostDto save(NewPostDto newPostDto, MultipartFile file) {
         String filename = storageService.store(file);
 
         Post post = repository.save(
@@ -75,8 +75,8 @@ public class PostService {
                         .image(filename)
                         .build()
         );
-        return post;
-    }*/
+        return GetPostDto.fromPost(post);
+    }
 
     public Page<Post> search(List<SearchCriteria> params, Pageable pageable) {
         PostSpecificationBuilder postSpecificationBuilder =

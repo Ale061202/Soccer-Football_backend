@@ -93,7 +93,7 @@ public class TeamController {
     })
     @GetMapping("/")
     public Page<GetTeamDto> getAll(@RequestParam(value = "search", defaultValue = "") String search,
-                                   @PageableDefault(size = 15, page = 0, sort = {"uploadDate"}, direction = Sort.Direction.DESC) Pageable pageable) {
+                                   @PageableDefault(size = 15, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = SearchCriteriaExtractor.extractSearchCriteriaList(search);
 

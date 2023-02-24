@@ -28,7 +28,8 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "post")
+    @OneToMany(mappedBy = "post")
+    @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
     public void addCommentToPost(Comment c){
