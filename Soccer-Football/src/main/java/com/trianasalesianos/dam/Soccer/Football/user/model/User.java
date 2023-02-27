@@ -1,5 +1,6 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
+import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import com.trianasalesianos.dam.Soccer.Football.utils.SetRoleAttributeConverter;
@@ -51,10 +52,10 @@ public class User implements UserDetails {
     private String last_name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Team> teams = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Post> posts = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder.Default
     private boolean accountNonExpired = true;
@@ -67,16 +68,6 @@ public class User implements UserDetails {
 
     @Convert(converter = SetRoleAttributeConverter.class)
     private Set<UserRole> roles;
-
-    public void addTeamToUSer(Team t){
-        teams.add(t);
-        t.setUser(this);
-    }
-
-    public void deleteTeamToUser(Team t){
-        teams.remove(t);
-        t.setUser(this);
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

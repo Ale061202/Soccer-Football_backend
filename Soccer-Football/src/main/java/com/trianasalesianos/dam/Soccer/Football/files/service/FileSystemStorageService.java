@@ -64,7 +64,7 @@ public class FileSystemStorageService implements StorageService{
         try (InputStream inputStream = new ByteArrayInputStream(file)) {
             Files.copy(inputStream, rootLocation.resolve(newFilename),
                     StandardCopyOption.REPLACE_EXISTING
-                    );
+            );
         } catch(IOException ex) {
             throw new StorageException("Error storing file: " + newFilename, ex);
         }

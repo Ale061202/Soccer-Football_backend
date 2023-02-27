@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.comment.model;
 
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -21,7 +22,8 @@ public class Comment {
 
     private String content;
 
-    private String author;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -106,6 +106,77 @@ public class LeagueController {
 
     }
 
+    @Operation(summary = "Get a list of Teams from a League")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "League Found",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = League.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                  {
+                                                      "id": 1,
+                                                      "league_name": "KingsLeague",
+                                                      "teams": [
+                                                          {
+                                                              "id": 3,
+                                                              "teamName": "Porcinos FC"
+                                                          },
+                                                          {
+                                                              "id": 4,
+                                                              "teamName": "Ultimate Mostoles"
+                                                          },
+                                                          {
+                                                              "id": 5,
+                                                              "teamName": "Saiyans FC"
+                                                          },
+                                                          {
+                                                              "id": 6,
+                                                              "teamName": "ElBarrio"
+                                                          },
+                                                          {
+                                                              "id": 7,
+                                                              "teamName": "PIO"
+                                                          },
+                                                          {
+                                                              "id": 8,
+                                                              "teamName": "1K"
+                                                          },
+                                                          {
+                                                              "id": 9,
+                                                              "teamName": "Kunisports"
+                                                          },
+                                                          {
+                                                              "id": 10,
+                                                              "teamName": "Troncos FC"
+                                                          },
+                                                          {
+                                                              "id": 11,
+                                                              "teamName": "Jijantes FC"
+                                                          },
+                                                          {
+                                                              "id": 12,
+                                                              "teamName": "Aniquiladores FC"
+                                                          },
+                                                          {
+                                                              "id": 13,
+                                                              "teamName": "Xbuyer Team"
+                                                          },
+                                                          {
+                                                              "id": 14,
+                                                              "teamName": "Rayo de Barcelona"
+                                                          }
+                                                      ]
+                                                  }
+                                             ]                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No League By Id Found",
+                    content = @Content),
+    })
     @GetMapping("/{id}")
     public GetLeagueDto getById(@PathVariable Long id){
         return GetLeagueDto.fromLeague(leagueService.findById(id).orElse(null));

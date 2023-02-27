@@ -21,13 +21,8 @@ public class FileController {
 
     private final StorageService storageService;
 
-
-
     @PostMapping("/upload/files")
-    public ResponseEntity<?> upload(@RequestPart("files") MultipartFile[] files) {
-
-        //FileResponse response = uploadFile(file);
-
+    public ResponseEntity<?> upload(@RequestPart("files")MultipartFile[] files){
         List<FileResponse> result = Arrays.stream(files)
                 .map(this::uploadFile)
                 .toList();
@@ -37,7 +32,6 @@ public class FileController {
                 .status(HttpStatus.CREATED)
                 .body(result);
     }
-
 
     @PostMapping("/upload")
     public ResponseEntity<?> upload(@RequestPart("file") MultipartFile file) {
@@ -73,5 +67,4 @@ public class FileController {
                 .header("Content-Type", resource.getType())
                 .body(resource);
     }
-
 }

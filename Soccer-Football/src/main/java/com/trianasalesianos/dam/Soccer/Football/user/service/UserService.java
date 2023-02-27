@@ -40,15 +40,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public UserResponse addTeam (UUID user_id, Long team_id){
-        User u = userRepository.findById(user_id).orElseThrow(() -> new UserNotFoundException());
-        Team t = teamRepository.findById(team_id).orElseThrow(() -> new TeamNotFoundException());
-
-        u.addTeamToUSer(t);
-
-        return UserResponse.fromUser(userRepository.save(u));
-    }
-
     public User createUserWithUserRole(CreateUserRequest createUserRequest) {
         return createUser(createUserRequest, EnumSet.of(UserRole.USER));
     }

@@ -1,10 +1,12 @@
 package com.trianasalesianos.dam.Soccer.Football.comment.service;
 
+import com.trianasalesianos.dam.Soccer.Football.comment.dto.NewCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.comment.repository.CommentRepository;
 import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.search.spec.CommentSpecificationBuilder;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,8 +38,12 @@ public class CommentService {
 
     }
 
-    public Comment save(Comment comment) {
-        return repository.save(comment);
+    public Comment save(NewCommentDto comment, User user) {
+        return repository.save(
+                Comment.builder()
+                        .content(comment.getContent())
+                        .user(user)
+                        .build());
     }
 
     public Comment edit(Long id, Comment edited) {

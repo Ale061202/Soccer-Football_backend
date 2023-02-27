@@ -10,6 +10,7 @@ import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.post.service.PostService;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteriaExtractor;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,44 +52,52 @@ public class PostController {
                                     value = """
                                             [
                                                   {
-                                                        "content": [
-                                                            {
-                                                                "id": 1,
-                                                                "image": null,
-                                                                "title": "Nueva imagen"
-                                                            },
-                                                            {
-                                                                "id": 2,
-                                                                "image": null,
-                                                                "title": "Nueva imagen"
-                                                            }
-                                                        ],
-                                                        "pageable": {
-                                                            "sort": {
-                                                                "empty": true,
-                                                                "sorted": false,
-                                                                "unsorted": true
-                                                            },
-                                                            "offset": 0,
-                                                            "pageSize": 20,
-                                                            "pageNumber": 0,
-                                                            "paged": true,
-                                                            "unpaged": false
-                                                        },
-                                                        "last": true,
-                                                        "totalElements": 2,
-                                                        "totalPages": 1,
-                                                        "size": 15,
-                                                        "number": 0,
-                                                        "sort": {
-                                                            "empty": true,
-                                                            "sorted": false,
-                                                            "unsorted": true
-                                                        },
-                                                        "first": true,
-                                                        "numberOfElements": 2,
-                                                        "empty": false
-                                                    }
+                                                      "content": [
+                                                          {
+                                                              "id": 34,
+                                                              "image": "logo_922412.png",
+                                                              "title": "Nuevo Content",
+                                                              "author": "ale",
+                                                              "comments": [
+                                                                  {
+                                                                      "id": 35,
+                                                                      "content": "Este es el nuevo contenido",
+                                                                      "author": "ale"
+                                                                  },
+                                                                  {
+                                                                      "id": 36,
+                                                                      "content": "Este es el nuevo contenido",
+                                                                      "author": "ale"
+                                                                  }
+                                                              ]
+                                                          }
+                                                      ],
+                                                      "pageable": {
+                                                          "sort": {
+                                                              "empty": true,
+                                                              "sorted": false,
+                                                              "unsorted": true
+                                                          },
+                                                          "offset": 0,
+                                                          "pageSize": 15,
+                                                          "pageNumber": 0,
+                                                          "unpaged": false,
+                                                          "paged": true
+                                                      },
+                                                      "last": true,
+                                                      "totalElements": 1,
+                                                      "totalPages": 1,
+                                                      "size": 15,
+                                                      "number": 0,
+                                                      "sort": {
+                                                          "empty": true,
+                                                          "sorted": false,
+                                                          "unsorted": true
+                                                      },
+                                                      "first": true,
+                                                      "numberOfElements": 1,
+                                                      "empty": false
+                                                  }
                                              ]                                         
                                             """
                             )}
@@ -115,9 +125,11 @@ public class PostController {
                                     value = """
                                             [
                                                   {
-                                                    "id": 2,
-                                                    "image": null,
-                                                    "title": "Nueva imagen"
+                                                      "id": 34,
+                                                      "image": "logo_922412.png",
+                                                      "title": "Nuevo Content",
+                                                      "author": "ale",
+                                                      "comments": []
                                                   }
                                              ]                                         
                                             """
@@ -145,10 +157,13 @@ public class PostController {
                                     value = """
                                             [
                                                   {
-                                                       "id": 2,
-                                                       "title": "Nueva imagen"
-                                                   }
-                                             ]                                         
+                                                      "id": 34,
+                                                      "image": "logo_922412.png",
+                                                      "title": "Nuevo Content",
+                                                      "author": "ale",
+                                                      "comments": []
+                                                  }
+                                             ]
                                             """
                             )}
                     )}),
@@ -158,11 +173,8 @@ public class PostController {
     })
 
     @PostMapping("/")
-    public ResponseEntity<GetPostDto> create(
-            @RequestPart("file") MultipartFile file,
-            @RequestPart("post") NewPostDto newPost
-    ) {
-        GetPostDto post = postService.save(newPost,file);
+    public ResponseEntity<GetPostDto> create(@RequestPart("file") MultipartFile file, @RequestPart("post") NewPostDto newPost, @AuthenticationPrincipal User user) {
+        GetPostDto post = postService.save(newPost,file,user);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(post);
     }
@@ -176,15 +188,12 @@ public class PostController {
                                     value = """
                                             [
                                                   {
-                                                       "id": 2,
-                                                       "league_name": "La Liga",
-                                                       "teams": [
-                                                           {
-                                                               "id": 1,
-                                                               "teamName": "Betis"
-                                                           }
-                                                       ]
-                                                   }
+                                                      "id": 34,
+                                                      "image": "logo_922412.png",
+                                                      "title": "Nuevo Content",
+                                                      "author": "ale",
+                                                      "comments": []
+                                                  }
                                              ]                                         
                                             """
                             )}
@@ -197,30 +206,5 @@ public class PostController {
     @PostMapping("/{postId}/comment/{commentId}")
     public ResponseEntity<GetPostDto> addCommentToPost(@PathVariable Long postId, @PathVariable Long commentId){
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.addTeam(postId,commentId));
-    }
-
-    @Operation(summary = "Delete Post")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204",
-                    description = "Post removed Successfully",
-                    content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Post.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            {
-                                                
-                                            }                                        
-                                            """
-                            )}
-                    )}),
-    })
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-
-        postService.delete(id);
-
-        return ResponseEntity.noContent().build();
-
     }
 }
