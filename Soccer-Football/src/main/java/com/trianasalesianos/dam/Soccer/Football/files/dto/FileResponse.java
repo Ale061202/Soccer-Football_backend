@@ -1,19 +1,13 @@
 package com.trianasalesianos.dam.Soccer.Football.files.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
 @Builder
 public class FileResponse {
-
     private String name;
     private String uri;
     private String type;
     private long size;
-
 }

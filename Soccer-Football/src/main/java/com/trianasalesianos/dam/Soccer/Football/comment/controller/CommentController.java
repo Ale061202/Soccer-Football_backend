@@ -1,11 +1,13 @@
 package com.trianasalesianos.dam.Soccer.Football.comment.controller;
 
 import com.trianasalesianos.dam.Soccer.Football.comment.dto.GetCommentDto;
+import com.trianasalesianos.dam.Soccer.Football.comment.dto.NewCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.comment.service.CommentService;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteriaExtractor;
 import com.trianasalesianos.dam.Soccer.Football.team.dto.GetTeamDto;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,9 +50,19 @@ public class CommentController {
                                                   {
                                                       "content": [
                                                           {
-                                                              "id": 1,
+                                                              "id": 34,
                                                               "content": "Este es el nuevo contenido",
-                                                              "author": "Mario"
+                                                              "author": "ale"
+                                                          },
+                                                          {
+                                                              "id": 35,
+                                                              "content": "Este es el nuevo contenido",
+                                                              "author": "ale"
+                                                          },
+                                                          {
+                                                              "id": 36,
+                                                              "content": "Este es el nuevo contenido",
+                                                              "author": "ale"
                                                           }
                                                       ],
                                                       "pageable": {
@@ -65,8 +78,8 @@ public class CommentController {
                                                           "unpaged": false
                                                       },
                                                       "last": true,
-                                                      "totalElements": 1,
                                                       "totalPages": 1,
+                                                      "totalElements": 3,
                                                       "size": 15,
                                                       "number": 0,
                                                       "sort": {
@@ -75,7 +88,7 @@ public class CommentController {
                                                           "unsorted": true
                                                       },
                                                       "first": true,
-                                                      "numberOfElements": 1,
+                                                      "numberOfElements": 3,
                                                       "empty": false
                                                   }
                                              ]                                         
@@ -106,10 +119,10 @@ public class CommentController {
                                     value = """
                                             [
                                                   {
-                                                       "id": 1,
-                                                       "content": "Este es el nuevo contenido",
-                                                       "author": "Mario"
-                                                   }
+                                                      "id": 34,
+                                                      "content": "Este es el nuevo contenido",
+                                                      "author": "ale"
+                                                  }
                                              ]                                         
                                             """
                             )}
@@ -136,9 +149,10 @@ public class CommentController {
                                     value = """
                                             [
                                                   {
-                                                       "id": 6,
-                                                       "content": "Este es el nuevo contenido"
-                                                   }
+                                                        "id": 34,
+                                                        "content": "Este es el nuevo contenido",
+                                                        "author": "ale"
+                                                  }
                                              ]                                         
                                             """
                             )}
@@ -148,9 +162,9 @@ public class CommentController {
                     content = @Content),
     })
     @PostMapping("/")
-    public ResponseEntity<GetCommentDto> createNewNote(@Valid @RequestBody Comment comment) {
+    public ResponseEntity<GetCommentDto> createNewNote(@Valid @RequestBody NewCommentDto comment, @AuthenticationPrincipal User user) {
 
-        Comment created = commentService.save(comment);
+        Comment created = commentService.save(comment,user);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -160,30 +174,6 @@ public class CommentController {
         return ResponseEntity
                 .created(createdURI)
                 .body(GetCommentDto.fromComment(created));
-
-    }
-
-    @Operation(summary = "Delete Comment")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204",
-                    description = "Comment removed Successfully",
-                    content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Comment.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            {
-                                                
-                                            }                                        
-                                            """
-                            )}
-                    )}),
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-
-        commentService.delete(id);
-
-        return ResponseEntity.noContent().build();
 
     }
 }

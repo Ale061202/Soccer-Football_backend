@@ -101,7 +101,7 @@ public class TeamController {
 
     }
 
-    @Operation(summary = "Get a TEam by Id")
+    @Operation(summary = "Get a Team by Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Team Found",

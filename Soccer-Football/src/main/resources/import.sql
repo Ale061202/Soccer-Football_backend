@@ -37,8 +37,8 @@ insert into team (id, team_name, league_id, user_id) values (NEXTVAL('hibernate_
 insert into team (id, team_name, league_id, user_id) values (NEXTVAL('hibernate_sequence'), 'Celta de Vigo', 2, 'd55285a1-154f-4956-8498-cad29c58fb4d')
 insert into team (id, team_name, league_id, user_id) values (NEXTVAL('hibernate_sequence'), 'Espanyol', 2, 'd55285a1-154f-4956-8498-cad29c58fb4d')
 
-insert into post (id, image, title, user_id) values (NEXTVAL('hibernate_sequence'),null,'El mejor dia de mi vida','d55285a1-154f-4956-8498-cad29c58fb4d')
-insert into post (id, image, title, user_id) values (NEXTVAL('hibernate_sequence'),null,'El peor dia de mi vida','d55285a1-154f-4956-8498-cad29c58fb4d')
+insert into post (id, image, title, user_id) values (NEXTVAL('hibernate_sequence'),'porcinosfc.png','El mejor dia de mi vida','d55285a1-154f-4956-8498-cad29c58fb4d')
+insert into post (id, image, title, user_id) values (NEXTVAL('hibernate_sequence'),'porcinosfc.png','El peor dia de mi vida','d55285a1-154f-4956-8498-cad29c58fb4d')
 
 insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'Roberto' , 'No es muy entretenida' , 34)
 insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'Alejandro' , 'Es muy entretenida' , 34)
@@ -47,4 +47,4 @@ insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate
 insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'David' , 'No entendi la referencia' , 35)
 insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'Jose Joaquin' , 'Divertidisimo' , 35)
 insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'Pablo' , 'No me gusta nada tu foto' , 35)
-insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'Loudres' , 'Es muy entretenida' , 35)
+insert into comment (id , author , content , post_id) values (NEXTVAL('hibernate_sequence'), 'Lourdes' , 'Es muy entretenida' , 35)

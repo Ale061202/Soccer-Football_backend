@@ -7,6 +7,7 @@ import com.trianasalesianos.dam.Soccer.Football.exception.CommentNotFoundExcepti
 import com.trianasalesianos.dam.Soccer.Football.exception.LeagueNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.PostNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
+//import com.trianasalesianos.dam.Soccer.Football.files.service.StorageService;
 import com.trianasalesianos.dam.Soccer.Football.files.service.StorageService;
 import com.trianasalesianos.dam.Soccer.Football.league.dto.GetLeagueDto;
 import com.trianasalesianos.dam.Soccer.Football.league.model.League;
@@ -17,6 +18,7 @@ import com.trianasalesianos.dam.Soccer.Football.post.repository.PostRepository;
 import com.trianasalesianos.dam.Soccer.Football.search.spec.PostSpecificationBuilder;
 import com.trianasalesianos.dam.Soccer.Football.search.util.SearchCriteria;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -66,13 +68,14 @@ public class PostService {
     }
 
     @Transactional
-    public GetPostDto save(NewPostDto newPostDto, MultipartFile file) {
+    public GetPostDto save(NewPostDto newPostDto, MultipartFile file, User user) {
         String filename = storageService.store(file);
 
         Post post = repository.save(
                 Post.builder()
                         .title(newPostDto.getTitle())
                         .image(filename)
+                        .user(user)
                         .build()
         );
         return GetPostDto.fromPost(post);

@@ -12,6 +12,4 @@ import javax.validation.constraints.NotEmpty;
 public class NewCommentDto {
     @NotEmpty(message = "{commentDto.content.notempty}")
     private String content;
-    @NotEmpty(message = "{commentDto.author.notempty}")
-    private String author;
 }

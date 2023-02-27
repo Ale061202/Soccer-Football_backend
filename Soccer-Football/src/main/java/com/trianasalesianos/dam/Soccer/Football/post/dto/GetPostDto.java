@@ -2,6 +2,7 @@ package com.trianasalesianos.dam.Soccer.Football.post.dto;
 
 import com.trianasalesianos.dam.Soccer.Football.comment.dto.GetCommentDto;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class GetPostDto {
 
     private String title;
 
+    private String author;
+
     private List<GetCommentDto> comments = new ArrayList<>();
 
 
@@ -27,13 +30,9 @@ public class GetPostDto {
                 .id(post.getId())
                 .image(post.getImage())
                 .title(post.getTitle())
+                .author(post.getUser().getUsername())
                 .comments(post.getComments().stream()
-                        .map(c -> GetCommentDto.builder()
-                                .id(c.getId())
-                                .author(c.getAuthor())
-                                .content(c.getContent())
-                                .build())
-                        .collect(Collectors.toList()))
+                        .map(GetCommentDto::fromComment).collect(Collectors.toList()))
                 .build();
     }
 }

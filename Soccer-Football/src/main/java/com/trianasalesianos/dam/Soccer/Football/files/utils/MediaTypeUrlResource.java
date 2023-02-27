@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URL;
 
 public class MediaTypeUrlResource extends UrlResource {
+
     public MediaTypeUrlResource(URL url) {
         super(url);
     }

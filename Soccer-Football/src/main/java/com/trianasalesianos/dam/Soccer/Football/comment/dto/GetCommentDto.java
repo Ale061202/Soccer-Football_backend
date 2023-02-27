@@ -1,6 +1,7 @@
 package com.trianasalesianos.dam.Soccer.Football.comment.dto;
 
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
+import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import lombok.*;
 
 @Getter @Setter
@@ -18,7 +19,7 @@ public class GetCommentDto {
         return GetCommentDto.builder()
                 .id(comment.getId())
                 .content(comment.getContent())
-                .author(comment.getAuthor())
+                .author(comment.getUser().getUsername())
                 .build();
     }
 }
