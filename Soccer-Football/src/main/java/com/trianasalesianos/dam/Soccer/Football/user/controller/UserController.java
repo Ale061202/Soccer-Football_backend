@@ -1,6 +1,7 @@
 package com.trianasalesianos.dam.Soccer.Football.user.controller;
 
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
+import com.trianasalesianos.dam.Soccer.Football.exception.NotPermission;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.access.JwtProvider;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshToken;
 import com.trianasalesianos.dam.Soccer.Football.security.jwt.refresh.RefreshTokenException;
@@ -25,10 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
@@ -57,12 +55,19 @@ public class UserController {
                                     value = """
                                             [
                                                   {
-                                                        "id": "ac1b0414-867d-19db-8186-7d69f7300000",
-                                                        "username": "ale",
-                                                        "avatar": "https://robohash.org/ale",
-                                                        "first_name": "Alejandro",
-                                                        "last_name": "Fernandez"
-                                                    }
+                                                         "id": "c0a8015e-8698-1f14-8186-98b0a0d80001",
+                                                         "username": "ale2",
+                                                         "avatar": "https://robohash.org/ale",
+                                                         "first_name": "Alejandro",
+                                                         "last_name": "Fernandez",
+                                                         "phone": "618123995",
+                                                         "email": "fernandezgoale21@gmail.com",
+                                                         "birthday": "2002-12-06",
+                                                         "token": "",
+                                                         "roles": [
+                                                             "USER"
+                                                         ]
+                                                   }
                                              ]                                         
                                             """
                             )}
@@ -88,12 +93,19 @@ public class UserController {
                                     value = """
                                             [
                                                   {
-                                                        "id": "ac1b0414-867d-19db-8186-7d862bd20001",
-                                                        "username": "admin",
-                                                        "avatar": "https://robohash.org/admin",
-                                                        "first_name": "Admin",
-                                                        "last_name": "admin"
-                                                    }
+                                                         "id": "c0a8015e-8698-11c9-8186-98b32ad20002",
+                                                         "username": "admin1234",
+                                                         "avatar": "https://robohash.org/admin",
+                                                         "first_name": "Admin",
+                                                         "last_name": "admin",
+                                                         "phone": null,
+                                                         "email": null,
+                                                         "birthday": null,
+                                                         "token": "",
+                                                         "roles": [
+                                                             "ADMIN"
+                                                         ]
+                                                  }
                                              ]                                         
                                             """
                             )}
@@ -174,12 +186,14 @@ public class UserController {
                                     value = """
                                             [
                                                  {
-                                                     "id": "ac1b0414-867d-19db-8186-7d69f7300000",
-                                                     "username": "ale",
-                                                     "avatar": "https://robohash.org/ale",
-                                                     "first_name": "Alejandro",
-                                                     "last_name": "Fernandez"
-                                                 } 
+                                                     "id": "c0a8015e-8698-11c9-8186-98b32ad20002",
+                                                     "username": "admin1234",
+                                                     "avatar": "https://robohash.org/admin",
+                                                     "first_name": "Admin",
+                                                     "last_name": "admin",
+                                                     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjMGE4MDE1ZS04Njk4LTExYzktODE4Ni05OGIzMmFkMjAwMDIiLCJpYXQiOjE2Nzc1OTkxNTYsImV4cCI6MTY3NzY3MTE1Nn0.AuN3CGm2Eejr9YlksZXyg_U5yVKt0opDxJoQw51FuetxEE66jMCDTXSyWeIuWdCiI_eV8mAz2c7rOAaspc25iA",
+                                                     "refreshToken": "f2619584-202a-42ca-a477-e907205c3de7"
+                                                 }
                                              ]                                         
                                             """
                             )}
@@ -207,5 +221,10 @@ public class UserController {
         }
 
         return null;
+    }
+
+    @DeleteMapping("/user/{uId}")
+    public ResponseEntity<?> deleteUser(@PathVariable UUID uId, @AuthenticationPrincipal User user) throws NotPermission {
+        return userService.deleteUser(uId, user);
     }
 }

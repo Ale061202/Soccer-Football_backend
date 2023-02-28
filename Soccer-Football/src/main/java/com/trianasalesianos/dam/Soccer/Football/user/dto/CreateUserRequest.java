@@ -4,6 +4,7 @@ import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import lombok.*;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter
@@ -21,5 +22,10 @@ public class CreateUserRequest {
 
     private String last_name;
 
-    private List<Long> teamList;
+    private String phone;
+
+    private LocalDate birthday;
+
+    private String email;
+
 }

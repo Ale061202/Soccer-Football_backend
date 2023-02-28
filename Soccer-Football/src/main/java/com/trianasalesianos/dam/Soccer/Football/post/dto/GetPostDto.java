@@ -36,6 +36,7 @@ public class GetPostDto {
                 .image(post.getImage())
                 .title(post.getTitle())
                 .author(post.getUser().getUsername())
+                .upload(post.getDate())
                 .comments(post.getComments().stream()
                         .map(GetCommentDto::fromComment).collect(Collectors.toList()))
                 .build();

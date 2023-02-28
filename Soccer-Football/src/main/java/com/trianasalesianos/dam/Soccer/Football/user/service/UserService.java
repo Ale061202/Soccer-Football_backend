@@ -1,8 +1,10 @@
 package com.trianasalesianos.dam.Soccer.Football.user.service;
 
 
+import com.trianasalesianos.dam.Soccer.Football.exception.NotPermission;
 import com.trianasalesianos.dam.Soccer.Football.exception.TeamNotFoundException;
 import com.trianasalesianos.dam.Soccer.Football.exception.UserNotFoundException;
+import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
 import com.trianasalesianos.dam.Soccer.Football.team.repository.TeamRepository;
 import com.trianasalesianos.dam.Soccer.Football.user.dto.CreateUserRequest;
@@ -11,6 +13,7 @@ import com.trianasalesianos.dam.Soccer.Football.user.model.User;
 import com.trianasalesianos.dam.Soccer.Football.user.model.UserRole;
 import com.trianasalesianos.dam.Soccer.Football.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +37,31 @@ public class UserService {
                 .avatar(createUserRequest.getAvatar())
                 .first_name(createUserRequest.getFirst_name())
                 .last_name(createUserRequest.getLast_name())
+                .phone(createUserRequest.getPhone())
+                .birthday(createUserRequest.getBirthday())
+                .email(createUserRequest.getEmail())
                 .roles(roles)
                 .build();
 
         return userRepository.save(user);
     }
+    public ResponseEntity<?> deleteUser(UUID idU, User user) throws NotPermission {
+        return userRepository.findById(idU).map(
+                oldUser -> {
+                    if (oldUser.getId().equals(user.getId()) || user.getRoles().contains(UserRole.ADMIN)) {
+
+                        userRepository.delete(oldUser);
+                        return ResponseEntity.noContent().build();
+                    }
+                    try {
+                        throw new NotPermission();
+                    } catch (NotPermission e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        ).orElseThrow(() -> new UserNotFoundException());
+    }
+
 
     public User createUserWithUserRole(CreateUserRequest createUserRequest) {
         return createUser(createUserRequest, EnumSet.of(UserRole.USER));
