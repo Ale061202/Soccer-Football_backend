@@ -1,5 +1,6 @@
 package com.trianasalesianos.dam.Soccer.Football.user.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trianasalesianos.dam.Soccer.Football.comment.model.Comment;
 import com.trianasalesianos.dam.Soccer.Football.post.model.Post;
 import com.trianasalesianos.dam.Soccer.Football.team.model.Team;
@@ -13,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,10 +53,18 @@ public class User implements UserDetails {
 
     private String last_name;
 
+    private String phone;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate birthday;
+
+    private String email;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @Builder.Default
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
     @Builder.Default
