@@ -73,7 +73,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/post/**", "/league/**", "/comment/**", "/team/**").hasRole("USER")
-                .antMatchers("/auth/register/admin").hasRole("ADMIN")
+                .antMatchers("/auth/register/admin","/post/**", "/league/**", "/comment/**", "/team/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
 
