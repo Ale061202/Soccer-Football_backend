@@ -54,8 +54,6 @@ public class User implements UserDetails {
     private String last_name;
 
     private String phone;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate birthday;
 
     private String email;
 
