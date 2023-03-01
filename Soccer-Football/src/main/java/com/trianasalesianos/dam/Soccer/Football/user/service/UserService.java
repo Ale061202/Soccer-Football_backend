@@ -38,7 +38,6 @@ public class UserService {
                 .first_name(createUserRequest.getFirst_name())
                 .last_name(createUserRequest.getLast_name())
                 .phone(createUserRequest.getPhone())
-                .birthday(createUserRequest.getBirthday())
                 .email(createUserRequest.getEmail())
                 .roles(roles)
                 .build();

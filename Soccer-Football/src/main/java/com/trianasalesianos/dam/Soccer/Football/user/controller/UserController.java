@@ -62,7 +62,6 @@ public class UserController {
                                                          "last_name": "Fernandez",
                                                          "phone": "618123995",
                                                          "email": "fernandezgoale21@gmail.com",
-                                                         "birthday": "2002-12-06",
                                                          "token": "",
                                                          "roles": [
                                                              "USER"

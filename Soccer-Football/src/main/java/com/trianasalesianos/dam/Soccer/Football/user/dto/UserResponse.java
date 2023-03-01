@@ -22,7 +22,6 @@ public class UserResponse {
 
     protected String id;
     protected String username, avatar, first_name,last_name,phone,email;
-    protected LocalDate birthday;
     protected String token;
     protected Set<UserRole> roles;
 
@@ -39,7 +38,6 @@ public class UserResponse {
                 .first_name(user.getFirst_name())
                 .last_name(user.getLast_name())
                 .phone(user.getPhone())
-                .birthday(user.getBirthday())
                 .email(user.getEmail())
                 .roles(user.getRoles())
                 .posts(user.getPosts().isEmpty() ? null : user.getPosts().stream().map(GetPostDto::fromPost).toList())
